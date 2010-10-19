@@ -160,6 +160,11 @@ namespace PandoraKeys
             SettingsDialog settingsDialog = new SettingsDialog();
             settingsDialog.ShowDialog();
         }
+
+        private void hideShowPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toogleWindow();
+        }
       
     }
 }

@@ -37,13 +37,13 @@
             this.nextTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.likeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dislikeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.locator = new System.Windows.Forms.Timer(this.components);
-            this.hideShowPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideShowPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.locator = new System.Windows.Forms.Timer(this.components);
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,35 +111,17 @@
             this.dislikeToolStripMenuItem.Text = "Dislike";
             this.dislikeToolStripMenuItem.Click += new System.EventHandler(this.dislikeToolStripMenuItem_Click);
             // 
-            // locator
+            // toolStripSeparator1
             // 
-            this.locator.Interval = 500;
-            this.locator.Tick += new System.EventHandler(this.locator_Tick);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(165, 6);
             // 
             // hideShowPlayerToolStripMenuItem
             // 
             this.hideShowPlayerToolStripMenuItem.Name = "hideShowPlayerToolStripMenuItem";
             this.hideShowPlayerToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.hideShowPlayerToolStripMenuItem.Text = "Hide/Show Player";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(165, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.hideShowPlayerToolStripMenuItem.Click += new System.EventHandler(this.hideShowPlayerToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -152,6 +134,25 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(165, 6);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // locator
+            // 
+            this.locator.Interval = 500;
+            this.locator.Tick += new System.EventHandler(this.locator_Tick);
             // 
             // Tuner
             // 
