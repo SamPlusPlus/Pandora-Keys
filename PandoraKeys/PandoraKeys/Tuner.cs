@@ -165,6 +165,14 @@ namespace PandoraKeys
         {
             toogleWindow();
         }
+
+        private void Tuner_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                toogleWindow();
+            }
+        }
       
     }
 }
