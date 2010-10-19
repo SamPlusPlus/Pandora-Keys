@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PandoraKeys.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="KeyboardPlayPause" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">Ctrl+Oemtilde</Value>
+    </Setting>
+    <Setting Name="KeyboardNextTrack" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">Ctrl+OemPeriod</Value>
+    </Setting>
+    <Setting Name="KeyboardLike" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">Ctrl+Up</Value>
+    </Setting>
+    <Setting Name="KeyboardDislike" Type="System.Windows.Forms.Keys" Scope="User">
+      <Value Profile="(Default)">Ctrl+Down</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
