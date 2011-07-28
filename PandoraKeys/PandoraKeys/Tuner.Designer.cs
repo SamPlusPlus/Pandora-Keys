@@ -57,7 +57,7 @@
             this.PandoraBrowser.ScrollBarsEnabled = false;
             this.PandoraBrowser.Size = new System.Drawing.Size(640, 459);
             this.PandoraBrowser.TabIndex = 0;
-            this.PandoraBrowser.Url = new System.Uri("http://www.pandora.com/radio/tuner_9_1_0_1_pandora.swf", System.UriKind.Absolute);
+            this.PandoraBrowser.Url = new System.Uri("https://www.pandora.com:443/radio/tuner_9_4_0_0_pandora.swf", System.UriKind.Absolute);
             // 
             // notifyIcon
             // 
