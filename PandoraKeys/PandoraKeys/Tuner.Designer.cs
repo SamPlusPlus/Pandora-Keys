@@ -164,7 +164,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Tuner";
             this.ShowInTaskbar = false;
-            this.Text = "Pandora Keys - Samuel Haddad.com *SNEAK PEAK*";
+            this.Text = "Pandora Keys - Samuel Haddad.com";
             this.Resize += new System.EventHandler(this.Tuner_Resize);
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
