@@ -32,22 +32,21 @@ namespace PandoraKeys
 {
     public partial class Tuner : Form
     {
-        Player player;
-        UserActivityHook actHook;
+        Player _player;
+        UserActivityHook _actHook;
 
         public Tuner()
         {
             InitializeComponent();
-            player = new Player(PandoraBrowser.Handle);
-            locator.Enabled = true;
+            _player = new Player(PandoraBrowser);
 
             //Setup
             //Start Keyboard Hook
             try
             {
-                actHook = new UserActivityHook();
-                actHook.KeyDown += new KeyEventHandler(MyKeyDown);
-                actHook.Start();
+                _actHook = new UserActivityHook();
+                _actHook.KeyDown += new KeyEventHandler(MyKeyDown);
+                _actHook.Start();
             }
             catch (Exception)
             {
@@ -65,22 +64,22 @@ namespace PandoraKeys
             //Play Pause
             if (e.KeyCode.Equals(Keys.MediaStop) || e.KeyCode.Equals(Keys.MediaPlayPause) || e.KeyData.Equals(Settings.Default.KeyboardPlayPause))
             {
-                player.PlayPause();
+                _player.PlayPause();
             }
             //Next Track
             else if (e.KeyCode.Equals(Keys.MediaNextTrack) || e.KeyData.Equals(Settings.Default.KeyboardNextTrack))
             {
-                player.NextTrack();
+                _player.Skip();
             }
             //Like
             else if (e.KeyData.Equals(Settings.Default.KeyboardLike))
             {
-                player.Like();
+                _player.Like();
             }
             //Dislike;
             else if (e.KeyData.Equals(Settings.Default.KeyboardDislike))
             {
-                player.Dislike();
+                _player.Dislike();
 
             }
         
@@ -91,22 +90,22 @@ namespace PandoraKeys
         //Context Menu
         private void playPauseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            player.PlayPause();
+            _player.PlayPause();
         }
         
         private void nextTrackToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            player.NextTrack();
+            _player.Skip();
         }
 
         private void likeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            player.Like();
+            _player.Like();
         }
 
         private void dislikeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            player.Dislike();
+            _player.Dislike();
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -132,22 +131,9 @@ namespace PandoraKeys
             }
         }
         
-        private void locator_Tick(object sender, EventArgs e)
-        {
-            //Timer Hack will keep checking until flash element is loaded into browser control.           
-            if (player.Located)
-            {
-                locator.Enabled = false;
-            }
-            else
-            {
-                player.LocatePlayer();
-            }
-        }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Pandora Keys is currently a Proof of Concept \nBased on Open Pandora By Eitan Pogrebizsky. \nCoded by Samuel Haddad");
+            MessageBox.Show("Pandora Keys is a desktop wrapper for Pandora.com. \nCoded by Samuel Haddad");
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -173,6 +159,7 @@ namespace PandoraKeys
                 toogleWindow();
             }
         }
-      
+
+     
     }
 }

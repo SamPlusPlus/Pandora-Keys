@@ -17,139 +17,76 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PandoraKeys.Win32;
 using System.Windows.Forms;
-
 
 namespace PandoraKeys
 {
     class Player
     {
+        private readonly WebBrowser _webBrowser;
+        
+        //Constants Button Actions
+        private enum Buttons {Dislike, Like, Play, Pause, Skip};
 
-        int hwndPandorPlayer;
-        int browserHandle;
-        Boolean located = false;
-        public Player(IntPtr controlHandle)
+        public Player(WebBrowser webBrowser)
         {
-            browserHandle = (int)controlHandle;
-        }
-
-
-        public void LocatePlayer()
-        {
-            //Locates the Flash Element located inside the browser control
-            if (located)
-            {
-                return;
-            }
-            else
-            {
-                int hShellEmbedding = User32.FindWindowEx(browserHandle, 0, "Shell Embedding", null);
-                int hShellDocObjectView = User32.FindWindowEx(hShellEmbedding, 0, "Shell DocObject View", null);
-                int hInternetExplorerServer = User32.FindWindowEx(hShellDocObjectView, 0, "Internet Explorer_Server", null);
-                hwndPandorPlayer = User32.FindWindowEx(hInternetExplorerServer, hwndPandorPlayer, "MacromediaFlashPlayerActiveX", null);
-                if (hwndPandorPlayer != 0)
-                {
-                    located = true;
-                }
-            }
-        }
-
-        public Boolean Located{
-            get { return located; }
-        }
-
-        //Player Contorls
-        /* Sends the following key strokes to the flash element inside the browser contorl
-         * These shortcut keys are found on Pandora's site
-         * http://blog.pandora.com/faq/contents/224.html
-         * spacebar: Toggle Play / Pause
-         * right-arrow: Skip to the Next Song
-         * plus: I Like this Song
-         * minus: I Don't Like this Song
-         * up-arrow: Raise Volume
-         * down-arrow: Lower Volume
-         * shift + up-arrow: Full Volume
-         * shift + down-arrow: Mute
-         */
-
-
-        public void PlayPause()
-        {
-            if (located)
-            {
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)Keys.Space, 0);
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)Keys.Space, 0);
-            }
-        }
-
-        public void NextTrack()
-        {
-            if (located)
-            {
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)Keys.Right, 0);
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)Keys.Right, 0);
-            }
-        }
-
-        public void Like()
-        {
-            if (located)
-            {
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)Keys.Add, 0);
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)Keys.Add, 0);
-            }
+            _webBrowser = webBrowser;
         }
 
         public void Dislike()
         {
-            if (located)
+            PressButton(Buttons.Dislike);
+        }
+
+        public void Like()
+        {
+            PressButton(Buttons.Like);
+        }
+
+        private void Play()
+        {
+            PressButton(Buttons.Play); //Called by PlayPause
+        }
+
+        private void Pause()
+        {
+            PressButton(Buttons.Pause); //Called by PlayPause
+        }
+
+        public void PlayPause()
+        {
+            PressButton(IsPaused ? Buttons.Play : Buttons.Pause);
+        }
+
+        public void Skip()
+        {
+            PressButton(Buttons.Skip);
+        }
+
+        public bool IsPaused
+        {
+            get
             {
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)Keys.Subtract, 0);
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)Keys.Subtract, 0);
+                try
+                {
+                    return _webBrowser.Document.GetElementById("playbackControl").FirstChild.Children[(int) Buttons.Pause].Style.ToLower().Contains("none");
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 
-        public void VolumeUp()
+        private void PressButton(Buttons action)
         {
-            if (located)
+            try
             {
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)Keys.Up, 0);
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)Keys.Up, 0);
+                if (_webBrowser.Document != null)
+                    _webBrowser.Document.GetElementById("playbackControl").FirstChild.Children[(int)action].FirstChild.InvokeMember("click");
             }
-        }
+            catch { }
 
-        public void VolumeDown()
-        {
-            if (located)
-            {
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)Keys.Down, 0);
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)Keys.Down, 0);
-            }
         }
-
-        public void FullVolume()
-        {
-            if (located)
-            {
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)(Keys.Shift), 0);
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)(Keys.Up), 0);
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)(Keys.Up), 0);
-                User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)(Keys.Shift), 0);
-            }
-        }
-
-        public void Mute()
-        {
-            User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)(Keys.Shift), 0);
-            User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYDOWN, (int)(Keys.Down), 0);
-            User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)(Keys.Down), 0);
-            User32.SendMessage(hwndPandorPlayer, WindowsMessageCode.WM_KEYUP, (int)(Keys.Shift), 0);
-        }
-   
     }   
 }

@@ -43,7 +43,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.locator = new System.Windows.Forms.Timer(this.components);
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,9 +54,9 @@
             this.PandoraBrowser.Name = "PandoraBrowser";
             this.PandoraBrowser.ScriptErrorsSuppressed = true;
             this.PandoraBrowser.ScrollBarsEnabled = false;
-            this.PandoraBrowser.Size = new System.Drawing.Size(640, 459);
+            this.PandoraBrowser.Size = new System.Drawing.Size(839, 463);
             this.PandoraBrowser.TabIndex = 0;
-            this.PandoraBrowser.Url = new System.Uri("https://www.pandora.com:443/radio/tuner_9_4_0_0_pandora.swf", System.UriKind.Absolute);
+            this.PandoraBrowser.Url = new System.Uri("https://www.pandora.com", System.UriKind.Absolute);
             // 
             // notifyIcon
             // 
@@ -149,23 +148,16 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // locator
-            // 
-            this.locator.Interval = 500;
-            this.locator.Tick += new System.EventHandler(this.locator_Tick);
-            // 
             // Tuner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 459);
+            this.ClientSize = new System.Drawing.Size(839, 463);
             this.Controls.Add(this.PandoraBrowser);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Tuner";
             this.ShowInTaskbar = false;
             this.Text = "Pandora Keys - Samuel Haddad.com";
-            this.Resize += new System.EventHandler(this.Tuner_Resize);
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -177,7 +169,6 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem playPauseToolStripMenuItem;
-        private System.Windows.Forms.Timer locator;
         private System.Windows.Forms.ToolStripMenuItem nextTrackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem likeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dislikeToolStripMenuItem;
