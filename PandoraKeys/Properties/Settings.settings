@@ -14,5 +14,8 @@
     <Setting Name="KeyboardDislike" Type="System.Windows.Forms.Keys" Scope="User">
       <Value Profile="(Default)">Ctrl+Down</Value>
     </Setting>
+    <Setting Name="WebserverPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5050</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -70,5 +70,17 @@ namespace PandoraKeys.Properties {
                 this["KeyboardDislike"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5050")]
+        public int WebserverPort {
+            get {
+                return ((int)(this["WebserverPort"]));
+            }
+            set {
+                this["WebserverPort"] = value;
+            }
+        }
     }
 }

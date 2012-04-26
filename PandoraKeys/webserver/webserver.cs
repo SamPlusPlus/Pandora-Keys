@@ -32,7 +32,7 @@ namespace PandoraKeys
     {
 
         private TcpListener myListener;
-        private Int32 _port = 5050; // TODO make this a settings property
+        private Int32 _port = 5050;
         private IPAddress _localAddr = null;
         private String apppath = AppDomain.CurrentDomain.BaseDirectory;
         private Thread th;

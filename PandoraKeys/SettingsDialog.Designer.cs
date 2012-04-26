@@ -48,14 +48,19 @@
             this.label9 = new System.Windows.Forms.Label();
             this.PlayPauseSet = new System.Windows.Forms.LinkLabel();
             this.SettingsTabControl = new System.Windows.Forms.TabControl();
+            this.WebServerTab = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.WebserverPort = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.KeyboardTab.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SettingsTabControl.SuspendLayout();
+            this.WebServerTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // settingsSaveBtn
             // 
-            this.settingsSaveBtn.Location = new System.Drawing.Point(341, 175);
+            this.settingsSaveBtn.Location = new System.Drawing.Point(340, 178);
             this.settingsSaveBtn.Name = "settingsSaveBtn";
             this.settingsSaveBtn.Size = new System.Drawing.Size(75, 23);
             this.settingsSaveBtn.TabIndex = 1;
@@ -65,7 +70,7 @@
             // 
             // cancelbtn
             // 
-            this.cancelbtn.Location = new System.Drawing.Point(422, 175);
+            this.cancelbtn.Location = new System.Drawing.Point(421, 178);
             this.cancelbtn.Name = "cancelbtn";
             this.cancelbtn.Size = new System.Drawing.Size(75, 23);
             this.cancelbtn.TabIndex = 2;
@@ -79,7 +84,7 @@
             this.KeyboardTab.Location = new System.Drawing.Point(4, 22);
             this.KeyboardTab.Name = "KeyboardTab";
             this.KeyboardTab.Padding = new System.Windows.Forms.Padding(3);
-            this.KeyboardTab.Size = new System.Drawing.Size(477, 131);
+            this.KeyboardTab.Size = new System.Drawing.Size(477, 134);
             this.KeyboardTab.TabIndex = 1;
             this.KeyboardTab.Text = "Keyboard Shortcuts";
             this.KeyboardTab.UseVisualStyleBackColor = true;
@@ -89,9 +94,9 @@
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.03756F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.67136F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.52582F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.95785F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.57845F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.4637F));
             this.tableLayoutPanel1.Controls.Add(this.DislikeSet, 2, 4);
             this.tableLayoutPanel1.Controls.Add(this.LikeSet, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.NextTrackSet, 2, 2);
@@ -111,7 +116,6 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(11, 11);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -270,17 +274,57 @@
             // SettingsTabControl
             // 
             this.SettingsTabControl.Controls.Add(this.KeyboardTab);
+            this.SettingsTabControl.Controls.Add(this.WebServerTab);
             this.SettingsTabControl.Location = new System.Drawing.Point(12, 12);
             this.SettingsTabControl.Name = "SettingsTabControl";
             this.SettingsTabControl.SelectedIndex = 0;
-            this.SettingsTabControl.Size = new System.Drawing.Size(485, 157);
+            this.SettingsTabControl.Size = new System.Drawing.Size(485, 160);
             this.SettingsTabControl.TabIndex = 0;
+            // 
+            // WebServerTab
+            // 
+            this.WebServerTab.Controls.Add(this.label2);
+            this.WebServerTab.Controls.Add(this.WebserverPort);
+            this.WebServerTab.Controls.Add(this.label1);
+            this.WebServerTab.Location = new System.Drawing.Point(4, 22);
+            this.WebServerTab.Name = "WebServerTab";
+            this.WebServerTab.Size = new System.Drawing.Size(477, 134);
+            this.WebServerTab.TabIndex = 2;
+            this.WebServerTab.Text = "Web Server";
+            this.WebServerTab.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(27, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Port:";
+            // 
+            // WebserverPort
+            // 
+            this.WebserverPort.Location = new System.Drawing.Point(70, 19);
+            this.WebserverPort.Name = "WebserverPort";
+            this.WebserverPort.Size = new System.Drawing.Size(103, 20);
+            this.WebserverPort.TabIndex = 1;
+            this.WebserverPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(29, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(306, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Changing the Web Server port requires restarting Pandora Keys";
             // 
             // SettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 209);
+            this.ClientSize = new System.Drawing.Size(506, 212);
             this.Controls.Add(this.cancelbtn);
             this.Controls.Add(this.settingsSaveBtn);
             this.Controls.Add(this.SettingsTabControl);
@@ -295,6 +339,8 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.SettingsTabControl.ResumeLayout(false);
+            this.WebServerTab.ResumeLayout(false);
+            this.WebServerTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -321,5 +367,9 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.LinkLabel PlayPauseSet;
         private System.Windows.Forms.TabControl SettingsTabControl;
+        private System.Windows.Forms.TabPage WebServerTab;
+        private System.Windows.Forms.TextBox WebserverPort;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

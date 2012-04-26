@@ -56,7 +56,7 @@
             this.PandoraBrowser.Name = "PandoraBrowser";
             this.PandoraBrowser.ScriptErrorsSuppressed = true;
             this.PandoraBrowser.ScrollBarsEnabled = false;
-            this.PandoraBrowser.Size = new System.Drawing.Size(839, 463);
+            this.PandoraBrowser.Size = new System.Drawing.Size(839, 591);
             this.PandoraBrowser.TabIndex = 0;
             this.PandoraBrowser.Url = new System.Uri("https://www.pandora.com", System.UriKind.Absolute);
             // 
@@ -168,7 +168,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 463);
+            this.ClientSize = new System.Drawing.Size(839, 591);
             this.Controls.Add(this.PandoraBrowser);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Tuner";

@@ -46,11 +46,22 @@ namespace PandoraKeys
             NextTrackLabel.Text = Settings.Default.KeyboardNextTrack.ToString();
             LikeLabel.Text = Settings.Default.KeyboardLike.ToString();
             DislikeLabel.Text = Settings.Default.KeyboardDislike.ToString();
+            //Load the Webserver Tab
+            WebserverPort.Text = Settings.Default.WebserverPort.ToString();
         
         }
 
         private void settingsSaveBtn_Click(object sender, EventArgs e)
-        {             
+        {
+            try
+            {
+                Settings.Default.WebserverPort = int.Parse(WebserverPort.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Bad Webserver Port Number!");
+                return;
+            }
             Settings.Default.Save();
             this.Close();
         }

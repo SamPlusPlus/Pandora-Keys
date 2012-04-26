@@ -52,8 +52,9 @@ namespace PandoraKeys
             {
                 _webserver = new WebServer();
                 _webserver.logEnabled = false;
+                _webserver.Port = Settings.Default.WebserverPort;
                 _webserver.Start(this);
-                this.Text = this.Text + " - " + _webserver.localAddr.ToString();
+                this.Text = this.Text + " - " + _webserver.localAddr.ToString() + ":" + Settings.Default.WebserverPort.ToString();
             }
             catch (Exception e)
             {
