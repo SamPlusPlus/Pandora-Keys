@@ -11,7 +11,8 @@
     <RootNamespace>PandoraKeys</RootNamespace>
     <AssemblyName>PandoraKeys</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>ftp://samplusplushosting.com/</PublishUrl>
@@ -65,10 +66,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>30FBF1B1D2E17B6B934D7BD693C9382D36933296</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C058E34506173E8CEE138FBD400C540FA4539635</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>SamPlusPlus.pfx</ManifestKeyFile>
+    <ManifestKeyFile>PandoraKeys_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -89,6 +90,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -105,7 +107,19 @@
     <Compile Include="KeyCatcher.designer.cs">
       <DependentUpon>KeyCatcher.cs</DependentUpon>
     </Compile>
+    <Compile Include="webserver\Log.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="webserver\Log.Designer.cs">
+      <DependentUpon>Log.cs</DependentUpon>
+    </Compile>
+    <Compile Include="webserver\dynamicitems.cs" />
+    <Compile Include="webserver\song.cs" />
+    <Compile Include="webserver\station.cs" />
+    <Compile Include="webserver\dynamicxml.cs" />
+    <Compile Include="webserver\webserver.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +140,9 @@
     <EmbeddedResource Include="KeyCatcher.resx">
       <DependentUpon>KeyCatcher.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="webserver\Log.resx">
+      <DependentUpon>Log.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -140,8 +157,12 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="webserver\Default.Dat" />
+    <None Include="webserver\mime.dat" />
+    <None Include="PandoraKeys_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -154,11 +175,29 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="SamPlusPlus.pfx" />
+    <None Include="webserver\vdirs.dat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pandora.ico" />
     <Content Include="Resources\Pandora.ico" />
+    <Content Include="webserver\root\default.css" />
+    <Content Include="webserver\root\default.html">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="webserver\root\images\fastforward.png" />
+    <Content Include="webserver\root\images\no_album_art.jpg" />
+    <Content Include="webserver\root\images\pause-watermark.png" />
+    <Content Include="webserver\root\images\pause.png" />
+    <Content Include="webserver\root\images\play.png" />
+    <Content Include="webserver\root\images\spinner.gif" />
+    <Content Include="webserver\root\images\splash.jpg" />
+    <Content Include="webserver\root\images\thumbs_down.png" />
+    <Content Include="webserver\root\images\thumbs_up.png" />
+    <Content Include="webserver\root\images\thumbup-watermark.png" />
+    <Content Include="webserver\root\images\volume_down.png" />
+    <Content Include="webserver\root\images\volume_up.png" />
+    <Content Include="webserver\root\pagedata.xml" />
+    <Content Include="webserver\root\scripts\javascript.js" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -181,6 +220,17 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MSHTML">
+      <Guid>{3050F1C5-98B5-11CF-BB82-00AA00BDCE0B}</Guid>
+      <VersionMajor>4</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -18,27 +18,47 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using PandoraKeys.Utilities;
 using PandoraKeys.Properties;
+
 
 namespace PandoraKeys
 {
     public partial class Tuner : Form
     {
-        Player _player;
         UserActivityHook _actHook;
+        WebServer _webserver;
+        private static Log _log = null;
+
+        public void stopLoging()
+        {
+            _webserver.logEnabled = false;
+        }
+        public dynamicitems getPitems()
+        {
+            dynamicitems pdi = new dynamicitems(PandoraBrowser);
+
+            return pdi;
+        }
 
         public Tuner()
         {
             InitializeComponent();
-            _player = new Player(PandoraBrowser);
+            Player._webBrowser = PandoraBrowser;
+            
+            // startup the Web Server
+            try
+            {
+                _webserver = new WebServer();
+                _webserver.logEnabled = false;
+                _webserver.Start(this);
+                this.Text = this.Text + " - " + _webserver.localAddr.ToString();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error starting web server exception: " + e.Message);
+            }
 
             //Setup
             //Start Keyboard Hook
@@ -64,22 +84,22 @@ namespace PandoraKeys
             //Play Pause
             if (e.KeyCode.Equals(Keys.MediaStop) || e.KeyCode.Equals(Keys.MediaPlayPause) || e.KeyData.Equals(Settings.Default.KeyboardPlayPause))
             {
-                _player.PlayPause();
+                Player.PlayPause();
             }
             //Next Track
             else if (e.KeyCode.Equals(Keys.MediaNextTrack) || e.KeyData.Equals(Settings.Default.KeyboardNextTrack))
             {
-                _player.Skip();
+                Player.Skip();
             }
             //Like
             else if (e.KeyData.Equals(Settings.Default.KeyboardLike))
             {
-                _player.Like();
+                Player.Like();
             }
             //Dislike;
             else if (e.KeyData.Equals(Settings.Default.KeyboardDislike))
             {
-                _player.Dislike();
+                Player.Dislike();
 
             }
         
@@ -90,22 +110,22 @@ namespace PandoraKeys
         //Context Menu
         private void playPauseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _player.PlayPause();
+            Player.PlayPause();
         }
         
         private void nextTrackToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _player.Skip();
+            Player.Skip();
         }
 
         private void likeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _player.Like();
+            Player.Like();
         }
 
         private void dislikeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _player.Dislike();
+            Player.Dislike();
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -133,7 +153,8 @@ namespace PandoraKeys
         
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Pandora Keys is a desktop wrapper for Pandora.com. \nCoded by Samuel Haddad");
+            MessageBox.Show("Pandora Keys is a desktop wrapper for Pandora.com. \nCoded by Samuel Haddad\nExtended by David Bullington");
+            //_player.message();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -160,6 +181,21 @@ namespace PandoraKeys
             }
         }
 
-     
+        private void Tuner_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _webserver.shutdown();
+        }
+
+        // start logging
+        private void log_Click(object sender, EventArgs e)
+        {
+
+            _log = new Log();
+            _log.Show();
+            _log.setTuner(this);
+            _webserver.Logger = _log;
+            _webserver.logEnabled = true;
+        }
+
     }
 }

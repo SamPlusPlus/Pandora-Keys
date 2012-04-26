@@ -1,0 +1,130 @@
+#background { 
+    width: 100%;  
+    height: 100%;  
+    position: fixed;  
+    left: 0px;  
+    top: 0px;  
+    z-index: -1; 
+} 
+#divpause
+{
+	position: center;
+	display:;
+	z-index:2;
+}
+.stretch { 
+    width:100%; 
+    height:100%; 
+} 
+.skinContainer
+{
+	padding: 0px;
+	width: 100%;  
+    height: 100%;  
+    position: fixed;  
+    left: 0px;  
+    top: 0px;
+	background-repeat: repeat-x;
+	background-position: center;
+	background-size:100% 100%;
+	width:100%;
+}
+
+#mainContainer {
+	background-position: center;
+	height:100%;
+
+}
+img
+{
+color:white;
+}
+.play{
+
+}
+.pause{
+
+}
+.heading
+{
+	text-align:center;
+	font-size:xx-large;
+	padding: 20px 0 40px 0;
+	
+}
+.thumbsup_watermark
+{
+	
+}
+.songimg
+{
+	text-align:center;
+}
+.songtitle
+{
+	text-decoration:none;
+	line-height:150%;
+	text-align:center;
+	font-family:"Arial";
+	font-size:x-large;
+	color:white;
+}
+.artist
+{
+text-decoration:none;
+	text-align:center;
+	font-size:large;
+	color:white;
+}
+.album
+{
+	text-align:center;
+	font-size:large;
+	color:white;
+}
+.station
+{
+	border:0;
+	padding-left:7px;
+	background-color:#192071;
+	font-size:large;
+	color:white;
+}
+.albumart
+{
+	width:300px;
+	border-width:5px;
+	border-style: ridge;
+	border-color: lightgray;
+
+}
+.shufflecurrent
+{
+	text-align:center;
+	font-size:large;
+	font-style:italic;
+	color:red;
+}
+.meter-wrap{
+    position: relative;
+}
+
+.meter-wrap, .meter-value, .meter-text {
+    /* The width and height of your image */
+    width: 270px; height: 5px;
+	text-align:center;
+
+}
+
+.meter-wrap, .meter-value {
+    background: #808080 top left no-repeat;
+	
+}
+
+.meter-text {
+    position: absolute;
+    top:0; left:0;
+    padding-top: 5px;
+    color: #fff;
+    width: 100%;
+}

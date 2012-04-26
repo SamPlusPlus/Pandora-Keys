@@ -17,59 +17,56 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+using System.Web;
 using System.Windows.Forms;
 
 namespace PandoraKeys
 {
-    class Player
+    public static class Player
     {
-        private readonly WebBrowser _webBrowser;
-        
+        public static WebBrowser _webBrowser;
+
         //Constants Button Actions
-        private enum Buttons {Dislike, Like, Play, Pause, Skip};
+        private enum Buttons { Dislike, Like, Play, Pause, Skip };
 
-        public Player(WebBrowser webBrowser)
-        {
-            _webBrowser = webBrowser;
-        }
-
-        public void Dislike()
+        public static void Dislike()
         {
             PressButton(Buttons.Dislike);
         }
 
-        public void Like()
+        public static void Like()
         {
             PressButton(Buttons.Like);
         }
 
-        private void Play()
+        private static void Play()
         {
             PressButton(Buttons.Play); //Called by PlayPause
         }
 
-        private void Pause()
+        private static void Pause()
         {
             PressButton(Buttons.Pause); //Called by PlayPause
         }
 
-        public void PlayPause()
+        public static void PlayPause()
         {
+
             PressButton(IsPaused ? Buttons.Play : Buttons.Pause);
         }
 
-        public void Skip()
+        public static void Skip()
         {
             PressButton(Buttons.Skip);
         }
 
-        public bool IsPaused
+        public static bool IsPaused
         {
             get
             {
                 try
                 {
-                    return _webBrowser.Document.GetElementById("playbackControl").FirstChild.Children[(int) Buttons.Pause].Style.ToLower().Contains("none");
+                    return getdoc().GetElementById("playbackControl").FirstChild.Children[(int)Buttons.Pause].Style.ToLower().Contains("none");
                 }
                 catch
                 {
@@ -78,15 +75,128 @@ namespace PandoraKeys
             }
         }
 
-        private void PressButton(Buttons action)
+        public static bool IsThumbsUp
+        {
+            get
+            {
+                try
+                {
+                    return !getdoc().GetElementById("thumbup").Style.Contains("none");
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+        }
+
+        private static void selectStation(string cmds)
         {
             try
             {
-                if (_webBrowser.Document != null)
-                    _webBrowser.Document.GetElementById("playbackControl").FirstChild.Children[(int)action].FirstChild.InvokeMember("click");
+                string[] cmd = cmds.Split('=');
+
+                HtmlElementCollection elc = getdoc().GetElementById("stationList").Children;
+                foreach (HtmlElement el in elc)
+                {
+                    HtmlElement tel = el;
+                    if (el.InnerHtml.Contains("checkbox"))
+                    {
+                        while (tel.Children.Count > 0) tel = tel.FirstChild;
+                        tel = tel.Parent;
+                        HtmlElementCollection children = tel.Children;
+                        tel = children[2];
+                    }
+
+                    while (tel.Children.Count > 0) tel = tel.FirstChild;
+                    if (tel.InnerText.CompareTo(HttpUtility.UrlDecode(cmd[1])) == 0) tel.InvokeMember("click");
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        public static bool Command(string cmds)
+        {
+            try
+            {
+                switch (cmds)
+                {
+                    case "cmd=up":
+                        // volume control later
+                        break;
+
+                    case "cmd=dn":
+                        // volume control later
+                        break;
+
+                    case "cmd=pause":
+                        // play/pause
+                        PlayPause();
+                        return IsPaused;
+
+                    case "cmd=thumbsup":
+                        // Thumbs UP
+                        Like();
+                        break;
+
+                    case "cmd=thumbsdn":
+                        // Thumbs Down
+                        Dislike();
+                        break;
+
+                    case "cmd=tired":
+                        // Next track
+                        Skip();
+                        break;
+                    default:
+                        // Select Station
+                        if (cmds.Contains("station")) selectStation(cmds);
+                        break;
+                }
+            }
+            catch { }
+
+            return false;
+        }
+        private static HtmlDocument getdoc()
+        {
+            HtmlDocument doc = null;
+            try
+            {
+
+                if (_webBrowser.InvokeRequired)
+                {
+                    _webBrowser.Invoke((MethodInvoker)delegate
+                    {
+                        doc = _webBrowser.Document;
+                    });
+                }
+                else
+                {
+
+                    doc = _webBrowser.Document;
+                }
+            }
+            catch { }
+            return doc;
+        }
+        private static void PressButton(Buttons action)
+        {
+            try
+            {
+                HtmlDocument doc = getdoc();
+                if (doc != null)
+                    doc.GetElementById("playbackControl").FirstChild.Children[(int)action].FirstChild.InvokeMember("click");
             }
             catch { }
 
         }
-    }   
+    }
 }

@@ -40,6 +40,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.hideShowPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.log = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,11 +78,13 @@
             this.toolStripSeparator1,
             this.hideShowPlayerToolStripMenuItem,
             this.settingsToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.log,
             this.toolStripSeparator2,
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(169, 214);
+            this.contextMenu.Size = new System.Drawing.Size(169, 242);
             // 
             // playPauseToolStripMenuItem
             // 
@@ -129,6 +133,18 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(165, 6);
+            // 
+            // log
+            // 
+            this.log.Name = "log";
+            this.log.Size = new System.Drawing.Size(168, 22);
+            this.log.Text = "Log";
+            this.log.Click += new System.EventHandler(this.log_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -157,7 +173,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Tuner";
             this.ShowInTaskbar = false;
-            this.Text = "Pandora Keys - Samuel Haddad.com";
+            this.Text = "Pandora Keys";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Tuner_FormClosed);
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -178,6 +195,8 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem log;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 

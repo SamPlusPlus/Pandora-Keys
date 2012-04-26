@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>Pandora Control</title>
+  <script src="/scripts/javascript.js" language="javascript" type="text/javascript"></script>
+  <link href="http://www.pandora.com/static/pandora_one/skins/pandoraone/skin.css" rel="stylesheet" type="text/css" />
+  <link href="/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="load()" >
+ 
+  <div id="mainContainer" class="skinContainer">
+  <form name="f1" action="/default.html" method="get">
+<table width='100%' >
+  <tr>
+    <td colspan='4' class='heading'>
+        <div align='center'>
+          <select id='stationlist' onfocus='onfocusstationlist(this);' onblur='onblurstationlist(this);' onchange="selstation(this);return false;" class='station' name="station" >
+            <option>Select me</option>
+          </select>
+          <div id='progress' class="meter-wrap">
+            <div id="metervalue" class="meter-value" style="background-color: #ffffff; width: 0%;">
+            </div>
+          </div>
+        </div>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan='4' align='center'>
+
+    </td>
+  </tr>
+    <!--<tr align="center">
+         <td><a href='/default.html?cmd=dn'><img src='/images/volume_down.png' height='100' width='100' alt='Volume Down' style="border:0" /></a></td>
+         <td><a href='/default.html?cmd=up' ><img src='/images/volume_up.png' height='100' width='100' alt='Volume UP' style="border:0" /></a></td>
+    </tr>-->
+    <tr align="center">
+      <td><a onclick="getxml('cmd=tired');return false;" href=''><img src='/images/fastforward.png' height='100' width='100' alt='Next' style="border:0" /></a></td>
+        <td><a onclick="getxml('cmd=thumbsdn');return false;" href=''><img src='/images/thumbs_down.png' height='100' width='100' alt='Thumbs Down' style="border:0" /></a></td>
+        <td><a onclick="getxml('cmd=thumbsup');return false;" href=''><img src='/images/thumbs_up.png' height='100' width='100' alt='Thumbs UP' style="border:0" /></a></td>
+        <td>
+          <a onclick="getxml('cmd=pause');return false;" href="">
+          <img id="play" class='play' src='/images/play.png' height='100' width='100' alt='Pause' style="border:0" />
+          <img id="pause" class='pause' src='/images/pause.png' height='100' width='100' alt='Pause' style="border:0" /></a></td>
+    </tr>
+  <tr>
+    <td colspan="4" class="songtitle">
+      <table width="100%">
+        <tr>
+          <td>
+            <img id="thumbsup" class='thumbsup_watermark' src='/images/thumbup-watermark.png' alt='Thumbs UP'/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a id='songtitle' href="" class="songtitle" target="_new"></a>
+          </td>
+        </tr>
+        <tr>
+          <td  class="artist" >
+            <i>by</i>
+            <a id="artist" href="" class="artist" target="_new"></a>
+          </td>
+        </tr>
+        <tr>
+          <td class="albumtitle" >
+            <i>on</i>
+            <span id="albumtitle"></span>
+          </td>
+        </tr>
+        <tr>
+          <td  class='songimg'>
+            <div id='divpause'>
+              <img src='/images/pause-watermark.png'></img>
+            </div>
+            <img id='albumart' class='albumart' src='' alt='Album Art' />
+          </td>
+        </tr>
+        <tr>
+          <td id='shufflecurrent' class='shufflecurrent'></td>
+        </tr>
+  
+      </table>
+    </td>
+  </tr>
+</table>
+  </form>
+  </div>
+  
+</body>
+</html>

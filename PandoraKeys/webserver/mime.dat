@@ -1,0 +1,14 @@
+.htm; text/html
+.html; text/html
+.asp; text/html
+.bmp; image/bmp
+.gif; image/gif
+.css; text/css
+.png; image/png
+.jpg; image/jpg
+.js; text/javascript
+.xml; text/xml
+
+
+
+
