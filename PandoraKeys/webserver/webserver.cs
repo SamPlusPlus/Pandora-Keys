@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2010 David W. Bullington, 
+ * Copyright (C) 2012 David W. Bullington, 
  * and individual contributors.
  *
  * This program is free software; you can redistribute it and/or
@@ -23,7 +23,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 namespace PandoraKeys
@@ -132,13 +131,10 @@ namespace PandoraKeys
 
         }
 
-        /// <summary>
-        /// Returns The Default File Name
-        /// Input : WebServerRoot Folder
-        /// Output: Default File Name
-        /// </summary>
-        /// <param name="sMyWebServerRoot"></param>
-        /// <returns></returns>
+ 
+        // Returns The Default File Name
+        // Input : WebServerRoot Folder
+    
         public string GetTheDefaultFileName(string sLocalDirectory, ref StringBuilder log)
         {
             StreamReader sr;
@@ -173,11 +169,9 @@ namespace PandoraKeys
 
 
 
-        /// <summary>
-        /// This function takes FileName as Input and returns the mime type..
-        /// </summary>
-        /// <param name="sRequestedFile">To indentify the Mime Type</param>
-        /// <returns>Mime Type</returns>
+
+        // This function takes FileName as Input and returns the mime type..
+
         public string GetMimeType(string sRequestedFile, ref StringBuilder log)
         {
 
@@ -233,14 +227,7 @@ namespace PandoraKeys
                 return "";
         }
 
-
-
-        /// <summary>
-        /// Returns the Physical Path
-        /// </summary>
-        /// <param name="sMyWebServerRoot">Web Server Root Directory</param>
-        /// <param name="sDirName">Virtual Directory </param>
-        /// <returns>Physical local Path</returns>
+        // Returns the Physical Path
         public string GetLocalPath(string sMyWebServerRoot, string sDirName, ref StringBuilder log)
         {
 
@@ -341,25 +328,17 @@ namespace PandoraKeys
         }
 
 
+        // Overloaded Function, takes string, convert to bytes and calls 
+        // overloaded sendToBrowserFunction.
 
-        /// <summary>
-        /// Overloaded Function, takes string, convert to bytes and calls 
-        /// overloaded sendToBrowserFunction.
-        /// </summary>
-        /// <param name="sData">The data to be sent to the browser(client)</param>
-        /// <param name="mySocket">Socket reference</param>
         public void SendToBrowser(String sData, ref Socket mySocket, ref StringBuilder log)
         {
             SendToBrowser(Encoding.ASCII.GetBytes(sData), ref mySocket, ref log);
         }
 
 
+        // Sends data to the browser (client)
 
-        /// <summary>
-        /// Sends data to the browser (client)
-        /// </summary>
-        /// <param name="bSendData">Byte Array</param>
-        /// <param name="mySocket">Socket reference</param>
         public void SendToBrowser(Byte[] bSendData, ref Socket mySocket, ref StringBuilder log)
         {
             int numBytes = 0;
@@ -384,13 +363,6 @@ namespace PandoraKeys
 
             }
         }
-
-
-        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-        // Activate an application window.
-        [DllImport("USER32.DLL")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         //This method Accepts new connection and
         //process the request
@@ -439,7 +411,6 @@ namespace PandoraKeys
             Socket socket = (Socket)skt;
             StringBuilder log = new StringBuilder();
 
-            //log.Append(((object)this).GetType().Name);
             log.Append("\n\n***************************************************\n ");
             log.Append("\nSocket Type " + socket.SocketType);
             log.Append(String.Format("\nClient Connected!!  --   CLient IP {0}\n",
@@ -532,7 +503,6 @@ namespace PandoraKeys
             if (sLocalDir.Length == 0)
             {
                 sErrorMessage = "<H2>Error!! Requested Directory does not exists</H2><Br>";
-                //sErrorMessage = sErrorMessage + "Please check data\\Vdirs.Dat";
 
                 //Format The Message
                 SendHeader(sHttpVersion, "", sErrorMessage.Length, " 404 Not Found", ref socket, ref log);
@@ -635,17 +605,6 @@ namespace PandoraKeys
 
                     SendToBrowser(sResponse, ref socket, ref log);
                 }
-               else if (sMimeType.Contains("text") && !sMimeType.Contains("javascript"))
-                {
-
-                    sResponse = asp(sResponse, tokens, ref log);
-
-                    SendHeader(sHttpVersion, sMimeType, sResponse.Length, " 200 OK", ref socket, ref log);
-
-                    SendToBrowser(sResponse, ref socket, ref log);
-
-                }
-    
                 else
                 {
                     SendHeader(sHttpVersion, sMimeType, iTotBytes, " 200 OK", ref socket, ref log);
@@ -657,103 +616,7 @@ namespace PandoraKeys
             settext(log.ToString());
             socket.Close();
         }
-
-        // need to find a better way to process replacements values
-        private string asp(String content, string[] tokens, ref StringBuilder log)
-        {
-
-            dynamicitems _dynamicitems = null;
-            
-            
- 
-            StringBuilder page = new StringBuilder();
-            page.Append(content);
-            _tuner.Invoke((MethodInvoker)delegate
-            {
-                _dynamicitems = _tuner.getPitems();
-            });
-
-            dynamicxml w = new dynamicxml(_dynamicitems);
-
-            int refresh = _dynamicitems.Song.TimeRemaining;
-            if (tokens.Length > 1)
-            {
-               
-                if (tokens[1].Contains("station") || tokens[1].Contains("tired") || tokens[1].Contains("thumbsdn") || tokens[1].Contains("thumbsup")) refresh = -1;
-            }
-            //if (_dynamicitems.Paused) refresh = -2;
-            log.Append("\nRefresh : " + refresh.ToString());
-            log.Append("\nTime Remaining : " + _dynamicitems.Song.TimeRemaining);
-            log.Append("\nElasped Time : " + _dynamicitems.Song.ElapsedTime);
-
-            page = page.Replace("$$$refreshtime", refresh.ToString());
-
-            string stationhtml = "";
-            if (_dynamicitems.StationList.Length == 0) page = page.Replace("$$$shufflecurrent", "");
-
-            foreach (station st in _dynamicitems.StationList)
-            {
-                string sel = st.IsSelected ? " selected " : "";
-                stationhtml += "<option value=\"" + st.Title + "\"" + sel + ">" + st.Title + "</option>";
-
-                if (st.Title.Contains("Shuffle")) if (!st.IsSelected) page = page.Replace("$$$shufflecurrent", "");
-                if (st.IsCurrent) page = page.Replace("$$$shufflecurrent", "Station: " + st.Title);
-
-            }
-
-            page = page.Replace("$$$stationlist", stationhtml);
-
-            if (_dynamicitems.Skin.CompareTo("") == 0) page = page.Replace("$$$skinhref", "/static/pandora_one/skins/pandoraone/skin.css");
-            else page = page.Replace("$$$skinhref", _dynamicitems.Skin);
-
-            page = page.Replace("$$$artist", _dynamicitems.Song.Artist);
-
-            page = page.Replace("$$$wikiartist", _dynamicitems.Song.Artist.Replace(" ", "_"));
-
-            page = page.Replace("$$$albumtitle", _dynamicitems.Song.AlbumTitle);
-
-            page = page.Replace("$$$songtitle", _dynamicitems.Song.Title);
-
-            // cleanup the song title so we can use it to query wiki
-            string tmp = _dynamicitems.Song.Title;
-            if (tmp.Contains("(")) tmp = tmp.Substring(0, tmp.IndexOf("(")).Trim();
-            page = page.Replace("$$$wikisongtitle", tmp.Replace(" ", "_"));
-
-            if (!_dynamicitems.Song.AlbumArtURL.Contains("http://")) page = page.Replace("$$$arturl", "/images/no_album_art.jpg");
-
-            else
-                if (_dynamicitems.Paused) page = page.Replace("$$$arturl", "/images/pause-watermark.png");
-                else page = page.Replace("$$$arturl", _dynamicitems.Song.AlbumArtURL);
-
-
-
-            if (_dynamicitems.ThumbUp)
-            {
-                page = page.Replace("$$$thumbup", "");
-                page = page.Replace("$$$nothumbup", "none");
-            }
-            else
-            {
-                page = page.Replace("$$$thumbup", "none");
-                page = page.Replace("$$$nothumbup", "");
-            }
-
-
-
-            if (_dynamicitems.Paused)
-            {
-                page = page.Replace("$$$pause", "none");
-                page = page.Replace("$$$play", "");
-            }
-            else
-            {
-                page = page.Replace("$$$pause", "");
-                page = page.Replace("$$$play", "none");
-            }
-
-            return page.ToString();
-        }
-
+   
         private void settext(string text)
         {
             if (_logEnabled)

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2010 David W. Bullington, 
+ * Copyright (C) 2012 David W. Bullington, 
  * and individual contributors.
  *
  * This program is free software; you can redistribute it and/or
