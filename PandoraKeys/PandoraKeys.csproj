@@ -180,7 +180,8 @@
   <ItemGroup>
     <Content Include="Pandora.ico" />
     <Content Include="Resources\Pandora.ico" />
-    <Content Include="webserver\root\default.css" />
+    <Content Include="webserver\root\css\mobile\default.css" />
+    <Content Include="webserver\root\css\other\default.css" />
     <Content Include="webserver\root\default.html">
       <SubType>Designer</SubType>
     </Content>
@@ -230,6 +231,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

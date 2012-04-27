@@ -447,9 +447,14 @@ namespace PandoraKeys
             // Look for HTTP request
             iStartPos = sBuffer.IndexOf("HTTP", 1);
 
+            // look for Mobile
+            string mobile = "css\\other\\";
+            if (sBuffer.Contains("Mobile")) mobile = "css\\mobile\\";
+            int l = mobile.Length;
 
             // Get the HTTP text and version e.g. it will return "HTTP/1.1"
             string sHttpVersion = sBuffer.Substring(iStartPos, 8);
+
 
             // Extract the Requested Type and Requested file/directory
             sRequest = sBuffer.Substring(0, iStartPos - 1);
@@ -549,9 +554,11 @@ namespace PandoraKeys
 
 
             //Build the physical path
-            sPhysicalFilePath = sLocalDir + sRequestedFile;
+            if (sRequestedFile.Contains("css")) sPhysicalFilePath = sLocalDir + mobile + sRequestedFile;
+            else sPhysicalFilePath = sLocalDir + sRequestedFile;
             sPhysicalFilePath = sPhysicalFilePath.Replace("/", "\\");
             sPhysicalFilePath = sPhysicalFilePath.Replace("\\\\", "\\");
+            
             log.Append("\nFile Requested : " + sPhysicalFilePath);
 
 

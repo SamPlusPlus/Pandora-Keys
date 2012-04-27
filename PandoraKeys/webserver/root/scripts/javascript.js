@@ -215,7 +215,6 @@ function getxml(cmd){
 			}
 		}
 		if(cmd != null){
-
 			delaytime = 0;
 			if(ex1running){
 
