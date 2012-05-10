@@ -24,8 +24,6 @@ namespace PandoraKeys
         private string _albumarturl = "/images/no_album_art.jpg";
         private string _artist = "no Artist";
         private string _albumtitle = "no Title";
-        private int _timeremaning;
-        private int _elapsedTime;
 
 
         public song()
@@ -55,14 +53,9 @@ namespace PandoraKeys
             get { return _albumtitle; }
             set { _albumtitle = value; }
         }
-        public int TimeRemaining
-        {
-            get { return _timeremaning; }
-            set { _timeremaning = value; }
-        }
-        public int ElapsedTime { 
-            get { return _elapsedTime; }
-            set { _elapsedTime = value; }
-        }
+
+        public int TimeRemaining { get; set; }
+
+        public int ElapsedTime { get; set; }
     }
 }
