@@ -39,16 +39,6 @@ namespace PandoraKeys
             PressButton(Buttons.Like);
         }
 
-        private static void Play()
-        {
-            PressButton(Buttons.Play); //Called by PlayPause
-        }
-
-        private static void Pause()
-        {
-            PressButton(Buttons.Pause); //Called by PlayPause
-        }
-
         public static void PlayPause()
         {
 
@@ -165,6 +155,7 @@ namespace PandoraKeys
 
             return false;
         }
+
         private static HtmlDocument getdoc()
         {
             HtmlDocument doc = null;
@@ -187,6 +178,7 @@ namespace PandoraKeys
             catch { }
             return doc;
         }
+
         private static void PressButton(Buttons action)
         {
             try
