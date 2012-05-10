@@ -477,7 +477,7 @@ namespace PandoraKeys
 
             if (tokens.Length > 1)
             {
-                bool ret = Player.Command(tokens[1]);
+                bool ret = _tuner.Player.Command(tokens[1]);
 
             }
 
@@ -601,7 +601,7 @@ namespace PandoraKeys
                     dynamicitems _dynamicitems = null;
                     _tuner.Invoke((MethodInvoker)delegate
                     {
-                        _dynamicitems = _tuner.getPitems();
+                        _dynamicitems = _tuner.Pitems;
                     });
 
                     dynamicxml dy = new dynamicxml(_dynamicitems);

@@ -38,7 +38,7 @@ namespace PandoraKeys
 
         private void Log_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _tuner.stopLoging();
+            _tuner.StopLogging();
         }
         public void LogText(string text)
         {

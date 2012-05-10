@@ -39,10 +39,7 @@ namespace PandoraKeys
             }
 
         }
-        public dynamicxml()
-        {
-
-        }
+  
         public dynamicxml(dynamicitems pi)
         {
             _pi = pi;

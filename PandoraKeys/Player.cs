@@ -17,40 +17,45 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+using System.Collections;
 using System.Web;
 using System.Windows.Forms;
 
 namespace PandoraKeys
 {
-    public static class Player
+    public class Player
     {
-        public static WebBrowser _webBrowser;
+        private readonly WebBrowser _webBrowser;
+
+        public Player(WebBrowser webBrowser)
+        {
+            _webBrowser = webBrowser;
+        }
 
         //Constants Button Actions
         private enum Buttons { Dislike, Like, Play, Pause, Skip };
 
-        public static void Dislike()
+        public void Dislike()
         {
             PressButton(Buttons.Dislike);
         }
 
-        public static void Like()
+        public void Like()
         {
             PressButton(Buttons.Like);
         }
 
-        public static void PlayPause()
+        public void PlayPause()
         {
-
             PressButton(IsPaused ? Buttons.Play : Buttons.Pause);
         }
 
-        public static void Skip()
+        public void Skip()
         {
             PressButton(Buttons.Skip);
         }
 
-        public static bool IsPaused
+        public bool IsPaused
         {
             get
             {
@@ -65,7 +70,7 @@ namespace PandoraKeys
             }
         }
 
-        public static bool IsThumbsUp
+        public bool IsThumbsUp
         {
             get
             {
@@ -81,7 +86,140 @@ namespace PandoraKeys
 
         }
 
-        private static void SelectStation(string cmds)
+        public station[] Stations
+        {
+            get
+            {
+                ArrayList stationlist = new ArrayList();
+
+                try
+                {
+                    HtmlElementCollection elc = _webBrowser.Document.GetElementById("stationList").Children;
+                    foreach (HtmlElement el in elc)
+                    {
+                        HtmlElement tel = el;
+                        station st = new station();
+                        // if we have a checkbox then shuffle is selected
+                        if (el.InnerHtml.Contains("checkbox"))
+                        {
+                            while (tel.Children.Count > 0) tel = tel.FirstChild;
+                            tel = tel.Parent;
+                            HtmlElementCollection children = tel.Children;
+                            tel = children[2];
+                        }
+
+                        while (tel.Children.Count > 0) tel = tel.FirstChild;
+
+                        string eltext = el.OuterHtml;
+                        st.IsSelected = false;
+                        // flag the selectd station for the drop down list
+                        if (eltext.Contains("selected")) st.IsSelected = true;
+                        // shuffleStationLabelCurrent - in shuffle mode this song is from this station
+                        if (eltext.Contains("shuffleStationLabelCurrent")) st.IsCurrent = true;
+
+                        // grab the station title
+                        st.Title = tel.InnerText;
+                        stationlist.Add(st);
+                    }
+                }
+                catch
+                {
+                }
+                station[] s = (station[])stationlist.ToArray(typeof(station));
+                return s;
+            }
+
+        }
+
+        // find and return the url for the background skin style which includes the the ref for the image
+        public string Skin
+        {
+            get
+            {
+                try
+                {
+                    HtmlElement skin = _webBrowser.Document.GetElementById("skinStyle");
+                    return skin.GetAttribute("href");
+                }
+                catch
+                {
+                    return "";
+                }
+            }
+
+        }
+
+        public song Song
+        {
+            get
+            {
+                // scan the document for Song Title, Artist, Album Title, Album image URL, Time Remaining
+                song s = new song();
+                try
+                {
+                    // get the Title
+                    HtmlDocument document = _webBrowser.Document;
+                    HtmlElementCollection col = document.GetElementById("trackInfo").FirstChild.Children;
+                    HtmlElementCollection col2 = col[1].Children;
+                    HtmlElement a = col2[3].FirstChild;
+                    s.Title = a.InnerText;
+                    if (s.Title == null) s.Title = "No Title";
+
+                    // now for the AlbumArt
+                    mshtml.IHTMLDocument2 domDoc = (mshtml.IHTMLDocument2)document.DomDocument;
+                    string doc = domDoc.body.innerHTML;
+                    int position = doc.IndexOf("class=playerBarArt ");
+                    int st = 0;
+                    int end = 0;
+                    if (position != -1)
+                    {
+                        st = doc.IndexOf("src=\"", position) + 5;
+                        end = doc.IndexOf("\"", st + 1);
+                        s.AlbumArtURL = doc.Substring(st, end - st);
+                    }
+                    else s.AlbumArtURL = "/images/no_album_art.jpg";
+
+                    // and the Artist
+                    col = document.GetElementById("trackInfo").FirstChild.Children;
+                    col2 = col[1].Children;
+                    HtmlElementCollection col3 = col2[4].Children;
+                    s.Artist = col3[1].InnerText;
+                    if (s.Artist == null) s.Artist = "No Artist";
+
+                    // Album Title
+                    col = document.GetElementById("trackInfo").FirstChild.Children;
+                    col2 = col[1].Children;
+                    col3 = col2[5].Children;
+                    s.AlbumTitle = col3[1].InnerText;
+                    if (s.AlbumTitle == null) s.AlbumTitle = "No Title";
+
+                    // Time remaining
+                    st = doc.IndexOf("class=remainingTime");
+                    st = doc.IndexOf(">", st) + 2;
+                    end = doc.IndexOf("<", st);
+
+                    string[] temp = doc.Substring(st, end - st).Split(':');
+                    for (int i = 0; i < temp.Length; i++) s.TimeRemaining = (60 * s.TimeRemaining) + int.Parse(temp[i]);
+
+                    // Elapsed Time
+                    st = doc.IndexOf("class=elapsedTime");
+                    st = doc.IndexOf(">", st) + 1;
+                    end = doc.IndexOf("<", st);
+
+                    temp = doc.Substring(st, end - st).Split(':');
+                    for (int i = 0; i < temp.Length; i++) s.ElapsedTime = (60 * s.ElapsedTime) + int.Parse(temp[i]);
+
+                }
+                catch
+                {
+                    s.TimeRemaining = 0;
+                }
+                return s;
+            }
+
+        }
+
+        private void SelectStation(string cmds)
         {
             try
             {
@@ -112,7 +250,7 @@ namespace PandoraKeys
 
         }
 
-        public static bool Command(string cmds)
+        public bool Command(string cmds)
         {
             try
             {
@@ -155,8 +293,19 @@ namespace PandoraKeys
 
             return false;
         }
+      
+        private void PressButton(Buttons action)
+        {
+            try
+            {
+                if (Doc != null)
+                    Doc.GetElementById("playbackControl").FirstChild.Children[(int)action].FirstChild.InvokeMember("click");
+            }
+            catch { }
 
-        private static HtmlDocument Doc
+        }
+
+        private HtmlDocument Doc
         {
             get
             {
@@ -166,10 +315,10 @@ namespace PandoraKeys
 
                     if (_webBrowser.InvokeRequired)
                     {
-                        _webBrowser.Invoke((MethodInvoker) delegate
-                                                               {
-                                                                   doc = _webBrowser.Document;
-                                                               });
+                        _webBrowser.Invoke((MethodInvoker)delegate
+                        {
+                            doc = _webBrowser.Document;
+                        });
                     }
                     else
                     {
@@ -177,22 +326,11 @@ namespace PandoraKeys
                         doc = _webBrowser.Document;
                     }
                 }
-                catch{}
+                catch { }
 
                 return doc;
             }
         }
 
-        private static void PressButton(Buttons action)
-        {
-            try
-            {
-                HtmlDocument doc = Doc;
-                if (doc != null)
-                    doc.GetElementById("playbackControl").FirstChild.Children[(int)action].FirstChild.InvokeMember("click");
-            }
-            catch { }
-
-        }
     }
 }

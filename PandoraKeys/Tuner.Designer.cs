@@ -1,6 +1,6 @@
 ﻿namespace PandoraKeys
 {
-    partial class Tuner
+    sealed partial class Tuner
     {
         /// <summary>
         /// Required designer variable.
