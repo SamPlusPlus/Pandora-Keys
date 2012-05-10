@@ -56,7 +56,7 @@ namespace PandoraKeys
             {
                 try
                 {
-                    return getdoc().GetElementById("playbackControl").FirstChild.Children[(int)Buttons.Pause].Style.ToLower().Contains("none");
+                    return Doc.GetElementById("playbackControl").FirstChild.Children[(int)Buttons.Pause].Style.ToLower().Contains("none");
                 }
                 catch
                 {
@@ -71,7 +71,7 @@ namespace PandoraKeys
             {
                 try
                 {
-                    return !getdoc().GetElementById("thumbup").Style.Contains("none");
+                    return !Doc.GetElementById("thumbup").Style.Contains("none");
                 }
                 catch
                 {
@@ -81,13 +81,13 @@ namespace PandoraKeys
 
         }
 
-        private static void selectStation(string cmds)
+        private static void SelectStation(string cmds)
         {
             try
             {
                 string[] cmd = cmds.Split('=');
 
-                HtmlElementCollection elc = getdoc().GetElementById("stationList").Children;
+                HtmlElementCollection elc = Doc.GetElementById("stationList").Children;
                 foreach (HtmlElement el in elc)
                 {
                     HtmlElement tel = el;
@@ -147,7 +147,7 @@ namespace PandoraKeys
                         break;
                     default:
                         // Select Station
-                        if (cmds.Contains("station")) selectStation(cmds);
+                        if (cmds.Contains("station")) SelectStation(cmds);
                         break;
                 }
             }
@@ -156,34 +156,38 @@ namespace PandoraKeys
             return false;
         }
 
-        private static HtmlDocument getdoc()
+        private static HtmlDocument Doc
         {
-            HtmlDocument doc = null;
-            try
+            get
             {
-
-                if (_webBrowser.InvokeRequired)
+                HtmlDocument doc = null;
+                try
                 {
-                    _webBrowser.Invoke((MethodInvoker)delegate
+
+                    if (_webBrowser.InvokeRequired)
                     {
-                        doc = _webBrowser.Document;
-                    });
-                }
-                else
-                {
+                        _webBrowser.Invoke((MethodInvoker) delegate
+                                                               {
+                                                                   doc = _webBrowser.Document;
+                                                               });
+                    }
+                    else
+                    {
 
-                    doc = _webBrowser.Document;
+                        doc = _webBrowser.Document;
+                    }
                 }
+                catch{}
+
+                return doc;
             }
-            catch { }
-            return doc;
         }
 
         private static void PressButton(Buttons action)
         {
             try
             {
-                HtmlDocument doc = getdoc();
+                HtmlDocument doc = Doc;
                 if (doc != null)
                     doc.GetElementById("playbackControl").FirstChild.Children[(int)action].FirstChild.InvokeMember("click");
             }
