@@ -63,7 +63,7 @@
     <ApplicationIcon>Pandora.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>C058E34506173E8CEE138FBD400C540FA4539635</ManifestCertificateThumbprint>
@@ -162,7 +162,6 @@
     <None Include="app.config" />
     <None Include="webserver\Default.Dat" />
     <None Include="webserver\mime.dat" />
-    <None Include="PandoraKeys_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
