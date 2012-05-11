@@ -13,7 +13,7 @@
 	display:;
 	z-index:2;
 }
-.stretch { 
+.stretch {
     width:100%; 
     height:100%; 
 } 
@@ -33,9 +33,16 @@
 
 #mainContainer {
 	background-position: center;
-	height:100%;
 
 }
+.main
+{
+width:50%;
+margin-left: auto;
+margin-right: auto;
+text-align: left;
+}
+
 img
 {
 color:white;
@@ -50,7 +57,6 @@ color:white;
 {
 	text-align:center;
 	font-size:xx-large;
-	padding: 20px 0 40px 0;
 	
 }
 .thumbsup_watermark
@@ -61,6 +67,15 @@ color:white;
 {
 	text-align:center;
 }
+.songinfo
+{
+	text-decoration:none;
+	line-height:150%;
+	text-align:center;
+	font-family:"Arial";
+	font-size:x-large;
+	color:white;
+}
 .songtitle
 {
 	text-decoration:none;
@@ -70,9 +85,16 @@ color:white;
 	font-size:x-large;
 	color:white;
 }
+.songtitletd
+{
+	padding-top: 5px;
+	padding-bottom: 20px;
+}
 .artist
 {
-text-decoration:none;
+	padding-top: 5px;
+	padding-bottom: 20px;
+	text-decoration:none;
 	text-align:center;
 	font-size:large;
 	color:white;
@@ -128,4 +150,9 @@ text-decoration:none;
     padding-top: 5px;
     color: #fff;
     width: 100%;
+}
+.stationlist
+{
+	padding-top: 50px;
+	padding-bottom: 50px;
 }

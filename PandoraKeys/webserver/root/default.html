@@ -10,10 +10,10 @@
  
   <div id="mainContainer" class="skinContainer">
   <form name="f1" action="/default.html" method="get">
-<table width='100%' >
+<table id="main" class="main">
   <tr>
     <td colspan='4' class='heading'>
-        <div align='center'>
+        <div class='stationlist' align='center'>
           <select id='stationlist' onfocus='onfocusstationlist(this);' onblur='onblurstationlist(this);' onchange="selstation(this);return false;" class='station' name="station" >
             <option>Select me</option>
           </select>
@@ -40,7 +40,7 @@
           <img id="pause" class='pause' src='/images/pause.png' height='100' width='100' alt='Pause' style="border:0" /></a></td>
     </tr>
   <tr>
-    <td colspan="4" class="songtitle">
+    <td colspan="4" class="songinfo">
       <table width="100%">
         <tr>
           <td>
@@ -48,7 +48,7 @@
           </td>
         </tr>
         <tr>
-          <td>
+          <td class='songtitletd'>
             <a id='songtitle' href="" class="songtitle" target="_new"></a>
           </td>
         </tr>

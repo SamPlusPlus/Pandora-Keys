@@ -20,7 +20,7 @@ using System;
 
 namespace PandoraKeys
 {
-    public class station
+    public class Station
     {
         public string Title { get; set; }
 

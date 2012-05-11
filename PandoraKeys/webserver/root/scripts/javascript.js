@@ -130,7 +130,7 @@ function getxml(cmd){
 			idstationlist = document.getElementById('stationlist');
 			id.innerHTML = "";
 		
-			var stations = xmlDoc.getElementsByTagName('station');
+			var stations = xmlDoc.getElementsByTagName('Station');
 			idstationlist.options.length = 0;
 			for(i=0; i<stations.length; i++)
 			{

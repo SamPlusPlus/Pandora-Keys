@@ -86,7 +86,7 @@ namespace PandoraKeys
 
         }
 
-        public station[] Stations
+        public Station[] Stations
         {
             get
             {
@@ -98,7 +98,7 @@ namespace PandoraKeys
                     foreach (HtmlElement el in elc)
                     {
                         HtmlElement tel = el;
-                        station st = new station();
+                        Station st = new Station();
                         // if we have a checkbox then shuffle is selected
                         if (el.InnerHtml.Contains("checkbox"))
                         {
@@ -125,7 +125,7 @@ namespace PandoraKeys
                 catch
                 {
                 }
-                station[] s = (station[])stationlist.ToArray(typeof(station));
+                Station[] s = (Station[])stationlist.ToArray(typeof(Station));
                 return s;
             }
 
@@ -149,12 +149,12 @@ namespace PandoraKeys
 
         }
 
-        public song Song
+        public Song Song
         {
             get
             {
                 // scan the document for Song Title, Artist, Album Title, Album image URL, Time Remaining
-                song s = new song();
+                Song s = new Song();
                 try
                 {
                     // get the Title

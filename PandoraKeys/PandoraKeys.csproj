@@ -63,13 +63,14 @@
     <ApplicationIcon>Pandora.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>C058E34506173E8CEE138FBD400C540FA4539635</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>PandoraKeys_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -115,8 +116,8 @@
     </Compile>
     <Compile Include="WebServer\dynamicitems.cs" />
     <Compile Include="WebServer\dynamicxml.cs" />
-    <Compile Include="WebServer\song.cs" />
-    <Compile Include="WebServer\station.cs" />
+    <Compile Include="WebServer\Song.cs" />
+    <Compile Include="WebServer\Station.cs" />
     <Compile Include="WebServer\webserver.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Settings.cs" />

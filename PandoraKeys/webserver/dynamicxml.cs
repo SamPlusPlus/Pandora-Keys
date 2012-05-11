@@ -56,9 +56,9 @@ namespace PandoraKeys
         [XmlRoot("ControlData")]
         public class AListWrapper
         {
-            [XmlElement(Type = typeof(song)),
+            [XmlElement(Type = typeof(Song)),
             XmlElement(Type = typeof(dynamicitems)),
-            XmlElement(Type = typeof(station))
+            XmlElement(Type = typeof(Station))
             ]
             public ArrayList list = new ArrayList();
 

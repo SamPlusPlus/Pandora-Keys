@@ -24,11 +24,11 @@ namespace PandoraKeys
 {
     public class dynamicitems
     {
-        public station[] StationList { get; set; }
+        public Station[] StationList { get; set; }
 
         public string Skin { get; set; }
 
-        public song Song { get; set; }
+        public Song Song { get; set; }
 
         public bool ThumbUp { get; set; }
 

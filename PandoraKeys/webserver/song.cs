@@ -18,7 +18,7 @@
  */
 namespace PandoraKeys
 {
-    public class song
+    public class Song
     {
         private string _title = "no Title";
         private string _albumarturl = "/images/no_album_art.jpg";
@@ -26,7 +26,7 @@ namespace PandoraKeys
         private string _albumtitle = "no Title";
 
 
-        public song()
+        public Song()
         {
         }
 
