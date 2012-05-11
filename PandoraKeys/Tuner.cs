@@ -25,29 +25,34 @@ using PandoraKeys.Properties;
 
 namespace PandoraKeys
 {
-    public partial class Tuner : Form
+    public sealed partial class Tuner : Form
     {
         UserActivityHook _actHook;
         WebServer _webserver;
         private static Log _log = null;
+        private Player _player;
 
-        public void stopLoging()
+        public void StopLogging()
         {
             _webserver.logEnabled = false;
         }
-        public dynamicitems getPitems()
-        {
-            dynamicitems pdi = new dynamicitems(PandoraBrowser);
 
-            return pdi;
+        public dynamicitems Pitems
+        {
+            get
+            {
+                return new dynamicitems(_player);
+            }
         }
 
         public Tuner()
         {
             InitializeComponent();
-            Player._webBrowser = PandoraBrowser;
+
+            //Create the player wrapper around the WebBrowser
+            _player = new Player(PandoraBrowser);
             
-            // startup the Web Server
+            //Startup the Web Server
             try
             {
                 _webserver = new WebServer();
@@ -76,34 +81,30 @@ namespace PandoraKeys
            
         }
 
-
         #region Keyboard Hooks
         //Keyboard Hooks
         public void MyKeyDown(object sender, KeyEventArgs e)
         {
-
             //Play Pause
             if (e.KeyCode.Equals(Keys.MediaStop) || e.KeyCode.Equals(Keys.MediaPlayPause) || e.KeyData.Equals(Settings.Default.KeyboardPlayPause))
             {
-                Player.PlayPause();
+                _player.PlayPause();
             }
             //Next Track
             else if (e.KeyCode.Equals(Keys.MediaNextTrack) || e.KeyData.Equals(Settings.Default.KeyboardNextTrack))
             {
-                Player.Skip();
+                _player.Skip();
             }
             //Like
             else if (e.KeyData.Equals(Settings.Default.KeyboardLike))
             {
-                Player.Like();
+                _player.Like();
             }
             //Dislike;
             else if (e.KeyData.Equals(Settings.Default.KeyboardDislike))
             {
-                Player.Dislike();
-
+                _player.Dislike();
             }
-        
         }
         #endregion
 
@@ -111,31 +112,31 @@ namespace PandoraKeys
         //Context Menu
         private void playPauseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Player.PlayPause();
+            _player.PlayPause();
         }
         
         private void nextTrackToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Player.Skip();
+            _player.Skip();
         }
 
         private void likeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Player.Like();
+            _player.Like();
         }
 
         private void dislikeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Player.Dislike();
+            _player.Dislike();
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            toogleWindow();
+            ToggleWindow();
         }
         #endregion
 
-        private void toogleWindow()
+        private void ToggleWindow()
         {
             if (this.Visible)
             {
@@ -155,7 +156,6 @@ namespace PandoraKeys
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Pandora Keys is a desktop wrapper for Pandora.com. \nCoded by Samuel Haddad\nExtended by David Bullington");
-            //_player.message();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -171,14 +171,14 @@ namespace PandoraKeys
 
         private void hideShowPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toogleWindow();
+            ToggleWindow();
         }
 
         private void Tuner_Resize(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
-                toogleWindow();
+                ToggleWindow();
             }
         }
 
@@ -190,12 +190,16 @@ namespace PandoraKeys
         // start logging
         private void log_Click(object sender, EventArgs e)
         {
-
             _log = new Log();
             _log.Show();
             _log.setTuner(this);
             _webserver.Logger = _log;
             _webserver.logEnabled = true;
+        }
+
+        public Player Player
+        {
+            get { return _player; }
         }
 
     }

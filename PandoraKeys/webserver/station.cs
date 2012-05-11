@@ -22,25 +22,10 @@ namespace PandoraKeys
 {
     public class station
     {
-        private string _title;
-        private Boolean _isselected;
-        private Boolean _iscurrent;
+        public string Title { get; set; }
 
-        public string Title
-        {
-            get { return _title; }
-            set { _title = value; }
-        }
-        public Boolean IsSelected
-        {
-            get { return _isselected; }
-            set { _isselected = value; }
-        }
-        public Boolean IsCurrent
-        {
-            get { return _iscurrent; }
-            set { _iscurrent = value; }
-        }
+        public bool IsSelected { get; set; }
 
+        public bool IsCurrent { get; set; }
     }
 }

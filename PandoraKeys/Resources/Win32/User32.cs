@@ -37,7 +37,5 @@ namespace PandoraKeys.Win32
 
         [DllImport("user32.dll")]
         public static extern int FindWindow(string lpClassName, string lpWindowName);
-
-
     }
 }
