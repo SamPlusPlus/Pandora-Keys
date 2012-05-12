@@ -195,6 +195,8 @@
     <Content Include="WebServer\root\images\thumbs_down.png" />
     <Content Include="WebServer\root\images\thumbs_up.png" />
     <Content Include="WebServer\root\images\thumbup-watermark.png" />
+    <Content Include="WebServer\root\images\volume_down.png" />
+    <Content Include="WebServer\root\images\volume_up.png" />
     <Content Include="WebServer\root\pagedata.xml" />
     <Content Include="WebServer\root\scripts\javascript.js" />
   </ItemGroup>
