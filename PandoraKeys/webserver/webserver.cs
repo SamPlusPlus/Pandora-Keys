@@ -477,7 +477,8 @@ namespace PandoraKeys
 
             if (tokens.Length > 1)
             {
-                bool ret = _tuner.Player.Command(tokens[1]);
+                log.Append("Command: " + tokens[1]);
+                bool ret = _tuner.Player.Command(tokens[1], ref log);
 
             }
 

@@ -44,6 +44,18 @@ if      (window.XMLHttpRequest) return new window.XMLHttpRequest();
 }
 
 function getxml(cmd){
+	delaytime = 0;
+	
+	if(ex1running){
+		ex1running = false;
+		clearInterval(inter);
+		count = 0;
+		inter = null;
+	}
+	if(restarttimer != null){
+		clearInterval(restarttimer);
+		restarttimer = null;
+	}
 	stationlistfocus = false;
 	var xmlhttp = getxmlparser();
 	if(xmlhttp != null) {

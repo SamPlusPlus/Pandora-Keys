@@ -34,12 +34,12 @@ namespace PandoraKeys
 
         public bool Paused { get; set; }
 
-        //Must be kept of XmlSerializer will throw an exception
+        //Must be kept or XmlSerializer will throw an exception
         public dynamicitems()
         {
         }
 
-        // this is call by the web server to get the current information and status of what is playing in the browser
+        // this is called by the web server to get the current information and status of what is playing in the browser
         public dynamicitems(Player player)
         {
 

@@ -39,7 +39,10 @@ namespace PandoraKeys
             }
 
         }
-  
+        public dynamicxml()
+        {
+
+        }
         public dynamicxml(dynamicitems pi)
         {
             _pi = pi;
@@ -47,9 +50,22 @@ namespace PandoraKeys
             AListWrapper wrapper = new AListWrapper();
 
             XmlSerializer mySerializer = new XmlSerializer(typeof(AListWrapper));
-            StringWriter outStream = new StringWriter();
-            mySerializer.Serialize(outStream, wrapper); 
-            _xml.Append(outStream.ToString());
+            System.IO.Stream stream = new System.IO.MemoryStream();
+
+            System.Xml.XmlTextWriter xtWriter = new System.Xml.XmlTextWriter(stream, Encoding.UTF8);
+
+            mySerializer.Serialize(xtWriter, wrapper);
+            xtWriter.Flush();
+
+            // go back to the beginning of the Stream to read its contents
+            stream.Seek(0, System.IO.SeekOrigin.Begin);
+
+            // read back the contents of the stream and supply the encoding
+            System.IO.StreamReader reader = new System.IO.StreamReader(stream, Encoding.UTF8);
+
+            string result = reader.ReadToEnd();
+             
+            _xml.Append(result);
         }
 
 

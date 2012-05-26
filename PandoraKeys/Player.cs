@@ -20,6 +20,8 @@
 using System.Collections;
 using System.Web;
 using System.Windows.Forms;
+using System.Text;
+using System;
 
 namespace PandoraKeys
 {
@@ -219,12 +221,13 @@ namespace PandoraKeys
 
         }
 
-        private void SelectStation(string cmds)
+        private void SelectStation(string cmds, ref StringBuilder log)
         {
+            log.Append("\nSelectStation");
             try
             {
                 string[] cmd = cmds.Split('=');
-
+                bool foundstation = false;
                 HtmlElementCollection elc = Doc.GetElementById("stationList").Children;
                 foreach (HtmlElement el in elc)
                 {
@@ -238,20 +241,27 @@ namespace PandoraKeys
                     }
 
                     while (tel.Children.Count > 0) tel = tel.FirstChild;
-                    if (tel.InnerText.CompareTo(HttpUtility.UrlDecode(cmd[1])) == 0) tel.InvokeMember("click");
+                    if (tel.InnerText.CompareTo(HttpUtility.UrlDecode(cmd[1])) == 0)
+                    {
+                        log.Append("\n*************** Found station: " + HttpUtility.UrlDecode(cmd[1]));
+                        foundstation = true;
+                        tel.InvokeMember("click");
+                    }
 
 
                 }
+                if (!foundstation) log.Append("\n *****************\nStation not found! " + HttpUtility.UrlDecode(cmd[1]));
             }
             catch
             {
-
+                log.Append("\n***************************   catch");
             }
 
         }
 
-        public bool Command(string cmds)
+        public bool Command(string cmds, ref StringBuilder log)
         {
+            log.Append("\ncmd switch");
             try
             {
                 switch (cmds)
@@ -266,6 +276,7 @@ namespace PandoraKeys
 
                     case "cmd=pause":
                         // play/pause
+                        log.Append("\npause '" + cmds + "'");
                         PlayPause();
                         return IsPaused;
 
@@ -285,11 +296,16 @@ namespace PandoraKeys
                         break;
                     default:
                         // Select Station
-                        if (cmds.Contains("station")) SelectStation(cmds);
+                        log.Append("\ndefault '" + cmds + "'");
+                        if (cmds.Contains("station"))
+                        {
+                            log.Append("\ncall selectStation");
+                            SelectStation(cmds, ref log);
+                        }
                         break;
                 }
             }
-            catch { }
+            catch (Exception e) { log.Append("\ncmd catch: " + e.Message); }
 
             return false;
         }
