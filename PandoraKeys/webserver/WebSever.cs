@@ -25,7 +25,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace PandoraKeys.Web
+namespace PandoraKeys
 {
 
     public class WebServer
