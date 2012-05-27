@@ -109,10 +109,10 @@ namespace PandoraKeys.Web
             catch (Exception e)
             {
                 log.Append("\nAn Exception Occurred while Listening :" + e.ToString());
-                settext(log.ToString());
+                SetText(log.ToString());
                 return true;
             }
-            settext(log.ToString());
+            SetText(log.ToString());
             return false;
         }
         public void shutdown()
@@ -612,11 +612,11 @@ namespace PandoraKeys.Web
                 }
 
             }
-            settext(log.ToString());
+            SetText(log.ToString());
             socket.Close();
         }
    
-        private void settext(string text)
+        private void SetText(string text)
         {
             if (LogEnabled)
             {

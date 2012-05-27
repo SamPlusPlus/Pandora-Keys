@@ -35,7 +35,7 @@ namespace PandoraKeys
 
         public void StopLogging()
         {
-            _webserver.logEnabled = false;
+            _webserver.LogEnabled = false;
         }
 
         public dynamicitems Pitems
@@ -57,7 +57,7 @@ namespace PandoraKeys
             try
             {
                 _webserver = new WebServer();
-                _webserver.logEnabled = false;
+                _webserver.LogEnabled = false;
                 _webserver.Port = Settings.Default.WebserverPort;
                 _webserver.Start(this);
                 this.Text = this.Text + " - " + _webserver.localAddr.ToString() + ":" + Settings.Default.WebserverPort.ToString();
@@ -195,7 +195,7 @@ namespace PandoraKeys
             _log.Show();
             _log.setTuner(this);
             _webserver.Logger = _log;
-            _webserver.logEnabled = true;
+            _webserver.LogEnabled = true;
         }
 
         public Player Player
