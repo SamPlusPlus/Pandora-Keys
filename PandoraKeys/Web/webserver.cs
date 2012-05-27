@@ -25,10 +25,10 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace PandoraKeys
+namespace PandoraKeys.Web
 {
 
-    class WebServer
+    public class WebServer
     {
 
         private TcpListener myListener;

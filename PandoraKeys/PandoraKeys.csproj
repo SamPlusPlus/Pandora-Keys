@@ -108,17 +108,17 @@
     <Compile Include="KeyCatcher.designer.cs">
       <DependentUpon>KeyCatcher.cs</DependentUpon>
     </Compile>
-    <Compile Include="WebServer\Log.cs">
+    <Compile Include="Web\Log.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WebServer\Log.Designer.cs">
+    <Compile Include="Web\Log.Designer.cs">
       <DependentUpon>Log.cs</DependentUpon>
     </Compile>
-    <Compile Include="WebServer\dynamicitems.cs" />
-    <Compile Include="WebServer\dynamicxml.cs" />
-    <Compile Include="WebServer\Song.cs" />
-    <Compile Include="WebServer\Station.cs" />
-    <Compile Include="WebServer\webserver.cs" />
+    <Compile Include="Web\dynamicitems.cs" />
+    <Compile Include="Web\dynamicxml.cs" />
+    <Compile Include="Web\Song.cs" />
+    <Compile Include="Web\Station.cs" />
+    <Compile Include="Web\webserver.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SettingsDialog.cs">
@@ -141,7 +141,7 @@
     <EmbeddedResource Include="KeyCatcher.resx">
       <DependentUpon>KeyCatcher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WebServer\Log.resx">
+    <EmbeddedResource Include="Web\Log.resx">
       <DependentUpon>Log.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsDialog.resx">
@@ -161,8 +161,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="WebServer\Default.Dat" />
-    <None Include="WebServer\mime.dat" />
+    <None Include="Web\Default.Dat" />
+    <None Include="Web\mime.dat" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -175,30 +175,30 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="WebServer\vdirs.dat" />
+    <None Include="Web\vdirs.dat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pandora.ico" />
     <Content Include="Resources\Pandora.ico" />
-    <Content Include="WebServer\root\css\mobile\default.css" />
-    <Content Include="WebServer\root\css\other\default.css" />
-    <Content Include="WebServer\root\default.html">
+    <Content Include="Web\root\css\mobile\default.css" />
+    <Content Include="Web\root\css\other\default.css" />
+    <Content Include="Web\root\default.html">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="WebServer\root\images\fastforward.png" />
-    <Content Include="WebServer\root\images\no_album_art.jpg" />
-    <Content Include="WebServer\root\images\pause-watermark.png" />
-    <Content Include="WebServer\root\images\pause.png" />
-    <Content Include="WebServer\root\images\play.png" />
-    <Content Include="WebServer\root\images\spinner.gif" />
-    <Content Include="WebServer\root\images\splash.jpg" />
-    <Content Include="WebServer\root\images\thumbs_down.png" />
-    <Content Include="WebServer\root\images\thumbs_up.png" />
-    <Content Include="WebServer\root\images\thumbup-watermark.png" />
-    <Content Include="WebServer\root\images\volume_down.png" />
-    <Content Include="WebServer\root\images\volume_up.png" />
-    <Content Include="WebServer\root\pagedata.xml" />
-    <Content Include="WebServer\root\scripts\javascript.js" />
+    <Content Include="Web\root\images\fastforward.png" />
+    <Content Include="Web\root\images\no_album_art.jpg" />
+    <Content Include="Web\root\images\pause-watermark.png" />
+    <Content Include="Web\root\images\pause.png" />
+    <Content Include="Web\root\images\play.png" />
+    <Content Include="Web\root\images\spinner.gif" />
+    <Content Include="Web\root\images\splash.jpg" />
+    <Content Include="Web\root\images\thumbs_down.png" />
+    <Content Include="Web\root\images\thumbs_up.png" />
+    <Content Include="Web\root\images\thumbup-watermark.png" />
+    <Content Include="Web\root\images\volume_down.png" />
+    <Content Include="Web\root\images\volume_up.png" />
+    <Content Include="Web\root\pagedata.xml" />
+    <Content Include="Web\root\scripts\javascript.js" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
