@@ -30,12 +30,11 @@ namespace PandoraKeys.Web
 
     public class WebServer
     {
-
-        private TcpListener myListener;
+        private TcpListener _myListener;
         private Int32 _port = 5050;
         private IPAddress _localAddr = null;
-        private String apppath = AppDomain.CurrentDomain.BaseDirectory;
-        private Thread th;
+        private String _apppath = AppDomain.CurrentDomain.BaseDirectory;
+        private Thread _th;
         private Boolean _logEnabled = false;
         private Log _log;
         private Tuner _tuner;
@@ -86,7 +85,7 @@ namespace PandoraKeys.Web
 
             if (Debugger.IsAttached)
             {
-                apppath = "../../webserver";
+                _apppath = "../../webserver";
             }
 
             IPHostEntry host;
@@ -105,13 +104,13 @@ namespace PandoraKeys.Web
             try
             {
                 //start listing on the given port
-                myListener = new TcpListener(_localAddr, _port);
-                myListener.Start();
+                _myListener = new TcpListener(_localAddr, _port);
+                _myListener.Start();
                 log.Append("\n IP: " + _localAddr.ToString());
                 log.Append("\nWeb Server Running... Press ^C to Stop...");
                 //start the thread which calls the method 'StartListen'
-                th = new Thread(new ThreadStart(StartListen));
-                th.Start();
+                _th = new Thread(new ThreadStart(StartListen));
+                _th.Start();
 
 
             }
@@ -126,8 +125,8 @@ namespace PandoraKeys.Web
         }
         public void shutdown()
         {
-            myListener.Stop();
-            th.Interrupt();
+            _myListener.Stop();
+            _th.Interrupt();
 
         }
 
@@ -146,7 +145,7 @@ namespace PandoraKeys.Web
             {
                 //Open the default.dat to find out the list
                 // of default file
-                sr = new StreamReader(apppath + "\\Default.Dat");
+                sr = new StreamReader(_apppath + "\\Default.Dat");
 
                 while ((sLine = sr.ReadLine()) != null)
                 {
@@ -192,7 +191,7 @@ namespace PandoraKeys.Web
             try
             {
                 //Open the Vdirs.dat to find out the list virtual directories
-                sr = new StreamReader(apppath + "\\Mime.Dat");
+                sr = new StreamReader(_apppath + "\\Mime.Dat");
 
                 while ((sLine = sr.ReadLine()) != null)
                 {
@@ -252,7 +251,7 @@ namespace PandoraKeys.Web
             try
             {
                 //Open the Vdirs.dat to find out the list virtual directories
-                sr = new StreamReader(apppath + "\\VDirs.Dat");
+                sr = new StreamReader(_apppath + "\\VDirs.Dat");
 
                 while ((sLine = sr.ReadLine()) != null)
                 {
@@ -290,7 +289,7 @@ namespace PandoraKeys.Web
             if (sVirtualDir == sDirName)
                 return sRealDir;
             else
-                return apppath + "/root/" + sDirName;
+                return _apppath + "/root/" + sDirName;
         }
 
         /// This function sends the Header Information to the client (Browser)
@@ -376,7 +375,7 @@ namespace PandoraKeys.Web
                 //Accept a new connection
                 try
                 {
-                    mySocket = myListener.AcceptSocket();
+                    mySocket = _myListener.AcceptSocket();
                 }
                 catch
                 {
@@ -404,7 +403,7 @@ namespace PandoraKeys.Web
             String sRequestedFile;
             String sErrorMessage;
             String sLocalDir;
-            String sMyWebServerRoot = apppath + "/root/";// TODO this needs to be in vdirs or something
+            String sMyWebServerRoot = _apppath + "/root/";// TODO this needs to be in vdirs or something
             String sPhysicalFilePath = "";
             String sResponse = "";
 

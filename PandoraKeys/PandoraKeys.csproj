@@ -118,7 +118,7 @@
     <Compile Include="Web\dynamicxml.cs" />
     <Compile Include="Web\Song.cs" />
     <Compile Include="Web\Station.cs" />
-    <Compile Include="Web\webserver.cs" />
+    <Compile Include="Web\WebSever.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SettingsDialog.cs">
