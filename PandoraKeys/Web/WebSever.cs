@@ -35,7 +35,6 @@ namespace PandoraKeys.Web
         private IPAddress _localAddr = null;
         private String _apppath = AppDomain.CurrentDomain.BaseDirectory;
         private Thread _th;
-        private Boolean _logEnabled = false;
         private Log _log;
         private Tuner _tuner;
 
@@ -55,27 +54,20 @@ namespace PandoraKeys.Web
             get { return _localAddr; }
 
         }
-        public Boolean logEnabled
-        {
-            get
-            {
-                return _logEnabled;
-            }
-            set
-            {
-                _logEnabled = value;
-            }
-        }
+
+        public bool LogEnabled { get; set; }
 
         public WebServer()
         {
-
+            LogEnabled = false;
         }
+
         public WebServer(Int32 port)
         {
+            LogEnabled = false;
             _port = port;
-
         }
+
         //The constructor which make the TcpListener start listening on the
         //given port. It also calls a Thread on the method StartListen(). 
         public bool Start(Tuner tuner)
@@ -626,7 +618,7 @@ namespace PandoraKeys.Web
    
         private void settext(string text)
         {
-            if (_logEnabled)
+            if (LogEnabled)
             {
                 try
                 {
