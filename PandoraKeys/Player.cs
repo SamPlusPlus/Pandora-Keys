@@ -156,7 +156,7 @@ namespace PandoraKeys
             get
             {
                 // scan the document for Song Title, Artist, Album Title, Album image URL, Time Remaining
-                Song s = new Song();
+                Song song = new Song();
                 try
                 {
                     // get the Title
@@ -164,8 +164,8 @@ namespace PandoraKeys
                     HtmlElementCollection col = document.GetElementById("trackInfo").FirstChild.Children;
                     HtmlElementCollection col2 = col[1].Children;
                     HtmlElement a = col2[3].FirstChild;
-                    s.Title = a.InnerText;
-                    if (s.Title == null) s.Title = "No Title";
+                    song.Title = a.InnerText;
+                    if (song.Title == null) song.Title = "No Title";
 
                     // now for the AlbumArt
                     mshtml.IHTMLDocument2 domDoc = (mshtml.IHTMLDocument2)document.DomDocument;
@@ -177,23 +177,23 @@ namespace PandoraKeys
                     {
                         st = doc.IndexOf("src=\"", position) + 5;
                         end = doc.IndexOf("\"", st + 1);
-                        s.AlbumArtURL = doc.Substring(st, end - st);
+                        song.AlbumArtURL = doc.Substring(st, end - st);
                     }
-                    else s.AlbumArtURL = "/images/no_album_art.jpg";
+                    else song.AlbumArtURL = "/images/no_album_art.jpg";
 
                     // and the Artist
                     col = document.GetElementById("trackInfo").FirstChild.Children;
                     col2 = col[1].Children;
                     HtmlElementCollection col3 = col2[4].Children;
-                    s.Artist = col3[1].InnerText;
-                    if (s.Artist == null) s.Artist = "No Artist";
+                    song.Artist = col3[1].InnerText;
+                    if (song.Artist == null) song.Artist = "No Artist";
 
                     // Album Title
                     col = document.GetElementById("trackInfo").FirstChild.Children;
                     col2 = col[1].Children;
                     col3 = col2[5].Children;
-                    s.AlbumTitle = col3[1].InnerText;
-                    if (s.AlbumTitle == null) s.AlbumTitle = "No Title";
+                    song.AlbumTitle = col3[1].InnerText;
+                    if (song.AlbumTitle == null) song.AlbumTitle = "No Title";
 
                     // Time remaining
                     st = doc.IndexOf("class=remainingTime");
@@ -201,7 +201,7 @@ namespace PandoraKeys
                     end = doc.IndexOf("<", st);
 
                     string[] temp = doc.Substring(st, end - st).Split(':');
-                    for (int i = 0; i < temp.Length; i++) s.TimeRemaining = (60 * s.TimeRemaining) + int.Parse(temp[i]);
+                    for (int i = 0; i < temp.Length; i++) song.TimeRemaining = (60 * song.TimeRemaining) + int.Parse(temp[i]);
 
                     // Elapsed Time
                     st = doc.IndexOf("class=elapsedTime");
@@ -209,14 +209,14 @@ namespace PandoraKeys
                     end = doc.IndexOf("<", st);
 
                     temp = doc.Substring(st, end - st).Split(':');
-                    for (int i = 0; i < temp.Length; i++) s.ElapsedTime = (60 * s.ElapsedTime) + int.Parse(temp[i]);
+                    for (int i = 0; i < temp.Length; i++) song.ElapsedTime = (60 * song.ElapsedTime) + int.Parse(temp[i]);
 
                 }
                 catch
                 {
-                    s.TimeRemaining = 0;
+                    song.TimeRemaining = 0;
                 }
-                return s;
+                return song;
             }
 
         }
