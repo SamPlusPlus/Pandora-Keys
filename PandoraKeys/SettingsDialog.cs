@@ -39,62 +39,53 @@ namespace PandoraKeys
             InitializeComponent();
         }
 
-        private void SettingsDialog_Load(object sender, EventArgs e)
-        {        
-            //Load the Keyboard Shortcuts Tab
-            PlayPauseLabel.Text = Settings.Default.KeyboardPlayPause.ToString();
-            NextTrackLabel.Text = Settings.Default.KeyboardNextTrack.ToString();
-            LikeLabel.Text = Settings.Default.KeyboardLike.ToString();
-            DislikeLabel.Text = Settings.Default.KeyboardDislike.ToString();
-            //Load the Webserver Tab
-            WebserverPort.Text = Settings.Default.WebserverPort.ToString();
-        
-        }
-
-        private void settingsSaveBtn_Click(object sender, EventArgs e)
+        private void SettingsDialogLoad(object sender, EventArgs e)
         {
-            try
-            {
-                Settings.Default.WebserverPort = int.Parse(WebserverPort.Text);
-            }
-            catch
-            {
-                MessageBox.Show("Bad Webserver Port Number!");
-                return;
-            }
-            Settings.Default.Save();
-            this.Close();
+           //Load the Keyboard Shortcuts Tab
+           PlayPauseLabel.Text = Settings.Default.KeyboardPlayPause.ToString();
+           NextTrackLabel.Text = Settings.Default.KeyboardNextTrack.ToString();
+           LikeLabel.Text = Settings.Default.KeyboardLike.ToString();
+           DislikeLabel.Text = Settings.Default.KeyboardDislike.ToString();
+
+           //Load the Webserver Tab
+           WebserverEnabledChkbox.Checked = Settings.Default.WebserverEnabled;
+           WebserverPort.Text = Settings.Default.WebserverPort.ToString();
         }
 
-        private void cancelbtn_Click(object sender, EventArgs e)
+        private void SettingsSaveBtnClick(object sender, EventArgs e)
+        {
+           ValidateAndSetSettings();
+           this.Close();
+        }
+
+        private void CancelBtnClick(object sender, EventArgs e)
         {
             Settings.Default.Reload();
             this.Close();
-
         }
 
     
         #region SetShortcutKeys
-        private void PlayPauseSet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+
+        private void PlayPauseSetLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Settings.Default.KeyboardPlayPause = SetShortCut(PlayPauseLabel);
         }
 
-        private void NextTrackSet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void NextTrackSetLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Settings.Default.KeyboardNextTrack = SetShortCut(NextTrackLabel);
         }
 
-        private void LikeSet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LikeSetLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Settings.Default.KeyboardLike = SetShortCut(LikeLabel);
         }
 
-        private void DislikeSet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void DislikeSetLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Settings.Default.KeyboardDislike = SetShortCut(DislikeLabel);
         }
-
      
         private Keys SetShortCut(Label l)
         {
@@ -109,5 +100,24 @@ namespace PandoraKeys
 
         } 
         #endregion
+
+        private void ValidateAndSetSettings()
+        {
+           //Validate and set Webserver Tab
+
+           int port;
+           if (int.TryParse(WebserverPort.Text, out port))
+           {
+              Settings.Default.WebserverPort = port;
+           }
+           else
+           {
+              MessageBox.Show("Bad Webserver Port Number!");
+              return;
+           }
+
+           Settings.Default.WebserverEnabled = WebserverEnabledChkbox.Checked;
+           Settings.Default.Save();
+        }
     }
 }

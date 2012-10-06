@@ -117,4 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label10.Text" xml:space="preserve">
+    <value>Enabling the web server will allow you to control pandora keys from networked 
+enabled devices. For example you could padora keys with your smart phone. The
+IP Address will be displayed in the title bar.</value>
+  </data>
 </root>
