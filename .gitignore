@@ -1,5 +1,4 @@
 /PandoraKeys/bin
 /PandoraKeys/obj
-PandoraKeys.5.1.ReSharper.user
-*.csproj.user
 _ReSharper*
+*.user
