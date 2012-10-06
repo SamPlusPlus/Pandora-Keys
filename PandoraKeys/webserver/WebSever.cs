@@ -77,7 +77,7 @@ namespace PandoraKeys
 
             if (Debugger.IsAttached)
             {
-                _apppath = "../../webserver";
+                _apppath = "../../";
             }
 
             IPHostEntry host;
@@ -137,7 +137,7 @@ namespace PandoraKeys
             {
                 //Open the default.dat to find out the list
                 // of default file
-                sr = new StreamReader(_apppath + "\\Default.Dat");
+               sr = new StreamReader(_apppath + "\\Webserver\\Default.dat");
 
                 while ((sLine = sr.ReadLine()) != null)
                 {
@@ -182,8 +182,8 @@ namespace PandoraKeys
 
             try
             {
-                //Open the Vdirs.dat to find out the list virtual directories
-                sr = new StreamReader(_apppath + "\\Mime.Dat");
+                //Open the Mime.dat to find out the support Mime types
+                sr = new StreamReader(_apppath + "\\Webserver\\Mime.dat");
 
                 while ((sLine = sr.ReadLine()) != null)
                 {
@@ -243,7 +243,7 @@ namespace PandoraKeys
             try
             {
                 //Open the Vdirs.dat to find out the list virtual directories
-                sr = new StreamReader(_apppath + "\\VDirs.Dat");
+               sr = new StreamReader(_apppath + "\\Webserver\\VDirs.dat");
 
                 while ((sLine = sr.ReadLine()) != null)
                 {
@@ -281,7 +281,7 @@ namespace PandoraKeys
             if (sVirtualDir == sDirName)
                 return sRealDir;
             else
-                return _apppath + "/root/" + sDirName;
+                return _apppath + "/Webserver/root/" + sDirName;
         }
 
         /// This function sends the Header Information to the client (Browser)
@@ -395,7 +395,7 @@ namespace PandoraKeys
             String sRequestedFile;
             String sErrorMessage;
             String sLocalDir;
-            String sMyWebServerRoot = _apppath + "/root/";// TODO this needs to be in vdirs or something
+            String sMyWebServerRoot = _apppath + "Webserver/root/";// TODO this needs to be in vdirs or something
             String sPhysicalFilePath = "";
             String sResponse = "";
 
@@ -404,7 +404,7 @@ namespace PandoraKeys
 
             log.Append("\n\n***************************************************\n ");
             log.Append("\nSocket Type " + socket.SocketType);
-            log.Append(String.Format("\nClient Connected!!  --   CLient IP {0}\n",
+            log.Append(String.Format("\nClient Connected!!  --   Client IP {0}\n",
                         socket.RemoteEndPoint));
 
             int i = 0;

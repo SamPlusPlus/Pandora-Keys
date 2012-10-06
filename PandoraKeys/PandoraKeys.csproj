@@ -32,7 +32,7 @@
     <PublisherName>Pandora Keys</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -108,17 +108,17 @@
     <Compile Include="KeyCatcher.designer.cs">
       <DependentUpon>KeyCatcher.cs</DependentUpon>
     </Compile>
-    <Compile Include="webserver\Log.cs">
+    <Compile Include="WebServer\Log.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="webserver\Log.Designer.cs">
+    <Compile Include="WebServer\Log.Designer.cs">
       <DependentUpon>Log.cs</DependentUpon>
     </Compile>
-    <Compile Include="webserver\dynamicitems.cs" />
-    <Compile Include="webserver\dynamicxml.cs" />
-    <Compile Include="webserver\Song.cs" />
-    <Compile Include="webserver\Station.cs" />
-    <Compile Include="webserver\WebSever.cs" />
+    <Compile Include="WebServer\dynamicitems.cs" />
+    <Compile Include="WebServer\dynamicxml.cs" />
+    <Compile Include="WebServer\Song.cs" />
+    <Compile Include="WebServer\Station.cs" />
+    <Compile Include="WebServer\WebSever.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SettingsDialog.cs">
@@ -141,7 +141,7 @@
     <EmbeddedResource Include="KeyCatcher.resx">
       <DependentUpon>KeyCatcher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="webserver\Log.resx">
+    <EmbeddedResource Include="WebServer\Log.resx">
       <DependentUpon>Log.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsDialog.resx">
@@ -161,8 +161,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="webserver\Default.Dat" />
-    <None Include="webserver\mime.dat" />
+    <Content Include="WebServer\Default.dat" />
+    <Content Include="WebServer\Mime.dat" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -175,30 +175,31 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="webserver\vdirs.dat" />
+    <Content Include="WebServer\root\favicon.ico" />
+    <Content Include="WebServer\VDirs.dat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pandora.ico" />
     <Content Include="Resources\Pandora.ico" />
-    <Content Include="webserver\root\css\mobile\default.css" />
-    <Content Include="webserver\root\css\other\default.css" />
-    <Content Include="webserver\root\default.html">
+    <Content Include="WebServer\root\css\mobile\default.css" />
+    <Content Include="WebServer\root\css\other\default.css" />
+    <Content Include="WebServer\root\default.html">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="webserver\root\images\fastforward.png" />
-    <Content Include="webserver\root\images\no_album_art.jpg" />
-    <Content Include="webserver\root\images\pause-watermark.png" />
-    <Content Include="webserver\root\images\pause.png" />
-    <Content Include="webserver\root\images\play.png" />
-    <Content Include="webserver\root\images\spinner.gif" />
-    <Content Include="webserver\root\images\splash.jpg" />
-    <Content Include="webserver\root\images\thumbs_down.png" />
-    <Content Include="webserver\root\images\thumbs_up.png" />
-    <Content Include="webserver\root\images\thumbup-watermark.png" />
-    <Content Include="webserver\root\images\volume_down.png" />
-    <Content Include="webserver\root\images\volume_up.png" />
-    <Content Include="webserver\root\pagedata.xml" />
-    <Content Include="webserver\root\scripts\javascript.js" />
+    <Content Include="WebServer\root\images\fastforward.png" />
+    <Content Include="WebServer\root\images\no_album_art.jpg" />
+    <Content Include="WebServer\root\images\pause-watermark.png" />
+    <Content Include="WebServer\root\images\pause.png" />
+    <Content Include="WebServer\root\images\play.png" />
+    <Content Include="WebServer\root\images\spinner.gif" />
+    <Content Include="WebServer\root\images\splash.jpg" />
+    <Content Include="WebServer\root\images\thumbs_down.png" />
+    <Content Include="WebServer\root\images\thumbs_up.png" />
+    <Content Include="WebServer\root\images\thumbup-watermark.png" />
+    <Content Include="WebServer\root\images\volume_down.png" />
+    <Content Include="WebServer\root\images\volume_up.png" />
+    <Content Include="WebServer\root\pagedata.xml" />
+    <Content Include="WebServer\root\scripts\javascript.js" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -233,7 +234,18 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PublishFile Include="WebServer\root\pagedata.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

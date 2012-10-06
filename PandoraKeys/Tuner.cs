@@ -21,8 +21,6 @@ using System;
 using System.Windows.Forms;
 using PandoraKeys.Utilities;
 using PandoraKeys.Properties;
-using PandoraKeys.Web;
-
 
 namespace PandoraKeys
 {
