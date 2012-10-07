@@ -22,7 +22,7 @@ using System.Windows.Forms;
 
 namespace PandoraKeys
 {
-    public class dynamicitems
+    public class DynamicItems
     {
         public Station[] StationList { get; set; }
 
@@ -35,12 +35,12 @@ namespace PandoraKeys
         public bool Paused { get; set; }
 
         //Must be kept or XmlSerializer will throw an exception
-        public dynamicitems()
+        public DynamicItems()
         {
         }
 
-        // this is called by the web server to get the current information and status of what is playing in the browser
-        public dynamicitems(Player player)
+        //This is called by the web server to get the current information and status of what is playing in the browser
+        public DynamicItems(Player player)
         {
 
             StationList = player.Stations;
@@ -50,6 +50,5 @@ namespace PandoraKeys
             Paused = player.IsPaused;
             
         }
-
     }
 }

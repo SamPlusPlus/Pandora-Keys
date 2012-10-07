@@ -114,8 +114,8 @@
     <Compile Include="WebServer\Log.Designer.cs">
       <DependentUpon>Log.cs</DependentUpon>
     </Compile>
-    <Compile Include="WebServer\dynamicitems.cs" />
-    <Compile Include="WebServer\dynamicxml.cs" />
+    <Compile Include="WebServer\DynamiciItems.cs" />
+    <Compile Include="WebServer\DynamicXml.cs" />
     <Compile Include="WebServer\Song.cs" />
     <Compile Include="WebServer\Station.cs" />
     <Compile Include="WebServer\WebSever.cs" />

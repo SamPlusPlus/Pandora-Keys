@@ -26,10 +26,10 @@ using System.Xml.Serialization;
 
 namespace PandoraKeys
 {
-    public class dynamicxml
+    public class DynamicXml
     {
-        private StringBuilder _xml;
-        private static dynamicitems _pi;
+        private readonly StringBuilder _xml;
+        private static DynamicItems _pi;
 
         public string XML
         {
@@ -39,20 +39,20 @@ namespace PandoraKeys
             }
 
         }
-        public dynamicxml()
+        public DynamicXml()
         {
 
         }
-        public dynamicxml(dynamicitems pi)
+        public DynamicXml(DynamicItems pi)
         {
             _pi = pi;
             _xml = new StringBuilder();
             AListWrapper wrapper = new AListWrapper();
 
             XmlSerializer mySerializer = new XmlSerializer(typeof(AListWrapper));
-            System.IO.Stream stream = new System.IO.MemoryStream();
+            Stream stream = new MemoryStream();
 
-            System.Xml.XmlTextWriter xtWriter = new System.Xml.XmlTextWriter(stream, Encoding.UTF8);
+            XmlTextWriter xtWriter = new XmlTextWriter(stream, Encoding.UTF8);
 
             mySerializer.Serialize(xtWriter, wrapper);
             xtWriter.Flush();
@@ -61,7 +61,7 @@ namespace PandoraKeys
             stream.Seek(0, System.IO.SeekOrigin.Begin);
 
             // read back the contents of the stream and supply the encoding
-            System.IO.StreamReader reader = new System.IO.StreamReader(stream, Encoding.UTF8);
+            StreamReader reader = new StreamReader(stream, Encoding.UTF8);
 
             string result = reader.ReadToEnd();
              
@@ -73,7 +73,7 @@ namespace PandoraKeys
         public class AListWrapper
         {
             [XmlElement(Type = typeof(Song)),
-            XmlElement(Type = typeof(dynamicitems)),
+            XmlElement(Type = typeof(DynamicItems)),
             XmlElement(Type = typeof(Station))
             ]
             public ArrayList list = new ArrayList();
@@ -84,7 +84,5 @@ namespace PandoraKeys
                 
             }
         }
-
-
     }
 }

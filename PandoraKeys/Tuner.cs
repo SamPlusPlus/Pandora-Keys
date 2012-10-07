@@ -39,11 +39,11 @@ namespace PandoraKeys
            }
         }
 
-        public dynamicitems Pitems
+        public DynamicItems Pitems
         {
             get
             {
-                return new dynamicitems(_player);
+                return new DynamicItems(_player);
             }
         }
 

@@ -34,20 +34,20 @@ namespace PandoraKeys
         {
             get { return _title; }
             set { _title = value; }
-
         }
 
         public string AlbumArtURL
         {
             get { return _albumarturl; }
             set { _albumarturl = value; }
-
         }
+
         public string Artist
         {
             get { return _artist; }
             set { _artist = value; }
         }
+
         public string AlbumTitle
         {
             get { return _albumtitle; }
@@ -55,7 +55,6 @@ namespace PandoraKeys
         }
 
         public int TimeRemaining { get; set; }
-
         public int ElapsedTime { get; set; }
     }
 }
