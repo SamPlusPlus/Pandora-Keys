@@ -130,7 +130,6 @@ namespace PandoraKeys
                 Station[] s = (Station[])stationlist.ToArray(typeof(Station));
                 return s;
             }
-
         }
 
         // find and return the url for the background skin style which includes the the ref for the image

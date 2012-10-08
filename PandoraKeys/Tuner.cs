@@ -33,14 +33,17 @@ namespace PandoraKeys
 
         public void StopLogging()
         {
-            _webserver.LogEnabled = false;
+           if (WebServerEnabled)
+           {
+              _webserver.LogEnabled = false;
+           }
         }
 
-        public dynamicitems Pitems
+        public DynamicItems Pitems
         {
             get
             {
-                return new dynamicitems(_player);
+                return new DynamicItems(_player);
             }
         }
 
@@ -51,21 +54,9 @@ namespace PandoraKeys
             //Create the player wrapper around the WebBrowser
             _player = new Player(PandoraBrowser);
             
-            //Startup the Web Server
-            try
-            {
-                _webserver = new WebServer();
-                _webserver.LogEnabled = false;
-                _webserver.Port = Settings.Default.WebserverPort;
-                _webserver.Start(this);
-                this.Text = this.Text + " - " + _webserver.localAddr.ToString() + ":" + Settings.Default.WebserverPort.ToString();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Error starting web server exception: " + e.Message);
-            }
+            StartWebServer();
 
-            //Setup
+           //Setup
             //Start Keyboard Hook
             try
             {
@@ -80,7 +71,28 @@ namespace PandoraKeys
            
         }
 
-        #region Keyboard Hooks
+        private void StartWebServer()
+        {
+           //Do not start the webserver if the user does not want us to.
+           if (!Settings.Default.WebserverEnabled)
+              return;
+
+           //Startup the Web Server
+           try
+           {
+              _webserver = new WebServer();
+              _webserver.LogEnabled = false;
+              _webserver.Port = Settings.Default.WebserverPort;
+              _webserver.Start(this);
+              Text = string.Format("{0} - {1}:{2}", Text, _webserver.localAddr, Settings.Default.WebserverPort.ToString());
+           }
+           catch (Exception e)
+           {
+              MessageBox.Show("Error starting web server exception: " + e.Message);
+           }
+        }
+
+       #region Keyboard Hooks
         //Keyboard Hooks
         public void MyKeyDown(object sender, KeyEventArgs e)
         {
@@ -154,7 +166,8 @@ namespace PandoraKeys
         
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Pandora Keys is a desktop wrapper for Pandora.com. \nCoded by Samuel Haddad\nExtended by David Bullington");
+           AboutForm about = new AboutForm();
+           about.ShowDialog();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -183,7 +196,10 @@ namespace PandoraKeys
 
         private void Tuner_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _webserver.shutdown();
+           if (WebServerEnabled)
+           {
+              _webserver.shutdown();
+           }
         }
 
         // start logging
@@ -192,14 +208,23 @@ namespace PandoraKeys
             _log = new Log();
             _log.Show();
             _log.setTuner(this);
-            _webserver.Logger = _log;
-            _webserver.LogEnabled = true;
+
+            if (WebServerEnabled)
+            {
+               _webserver.Logger = _log;
+               _webserver.LogEnabled = true;
+            }
         }
 
         public Player Player
         {
             get { return _player; }
         }
+
+       private bool WebServerEnabled
+       {
+          get { return Settings.Default.WebserverEnabled; }
+       }
 
     }
 }

@@ -590,13 +590,13 @@ namespace PandoraKeys
                 fs.Close();
                 if (sMimeType.Contains("xml"))
                 {
-                    dynamicitems _dynamicitems = null;
+                    DynamicItems dynamicItems = null;
                     _tuner.Invoke((MethodInvoker)delegate
                     {
-                        _dynamicitems = _tuner.Pitems;
+                        dynamicItems = _tuner.Pitems;
                     });
 
-                    dynamicxml dy = new dynamicxml(_dynamicitems);
+                    DynamicXml dy = new DynamicXml(dynamicItems);
 
                     sResponse = dy.XML;
 
