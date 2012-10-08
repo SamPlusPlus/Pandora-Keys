@@ -166,7 +166,9 @@ namespace PandoraKeys
         
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Pandora Keys is a desktop wrapper for Pandora.com. \nCoded by Samuel Haddad\nExtended by David Bullington");
+           AboutForm about = new AboutForm();
+           about.ShowDialog();
+            //MessageBox.Show("Pandora Keys is a desktop wrapper for Pandora.com. \nCoded by Samuel Haddad\nExtended by David Bullington");
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
