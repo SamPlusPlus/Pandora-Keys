@@ -26,10 +26,11 @@ namespace PandoraKeys
 {
     public sealed partial class Tuner : Form
     {
-        UserActivityHook _actHook;
+       readonly UserActivityHook _actHook;
         WebServer _webserver;
         private static Log _log = null;
-        private Player _player;
+        private readonly Player _player;
+        private bool _webServerEnabled = false;
 
         public void StopLogging()
         {
@@ -53,7 +54,8 @@ namespace PandoraKeys
 
             //Create the player wrapper around the WebBrowser
             _player = new Player(PandoraBrowser);
-            
+           _webServerEnabled = Settings.Default.WebserverEnabled; 
+
             StartWebServer();
 
            //Setup
@@ -223,7 +225,7 @@ namespace PandoraKeys
 
        private bool WebServerEnabled
        {
-          get { return Settings.Default.WebserverEnabled; }
+          get { return _webServerEnabled; }
        }
 
     }
