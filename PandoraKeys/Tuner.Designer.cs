@@ -175,6 +175,7 @@
            this.ShowInTaskbar = false;
            this.Text = "Pandora Keys";
            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Tuner_FormClosed);
+           this.Resize += new System.EventHandler(this.Tuner_Resize);
            this.contextMenu.ResumeLayout(false);
            this.ResumeLayout(false);
 
