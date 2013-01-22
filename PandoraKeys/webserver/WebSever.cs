@@ -88,6 +88,7 @@ namespace PandoraKeys
                 if (ip.AddressFamily.ToString() == "InterNetwork")
                 {
                     _localAddr = ip;
+                    break;
 
                 }
             }
