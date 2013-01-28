@@ -77,7 +77,7 @@ namespace PandoraKeys
 
             if (Debugger.IsAttached)
             {
-                _apppath = "../../";
+                _apppath = "../../WebServer";
             }
 
             IPHostEntry host;
@@ -88,6 +88,7 @@ namespace PandoraKeys
                 if (ip.AddressFamily.ToString() == "InterNetwork")
                 {
                     _localAddr = ip;
+                    break;
 
                 }
             }
@@ -137,7 +138,7 @@ namespace PandoraKeys
             {
                 //Open the default.dat to find out the list
                 // of default file
-               sr = new StreamReader(_apppath + "\\Webserver\\Default.dat");
+               sr = new StreamReader(_apppath + "\\Default.dat");
 
                 while ((sLine = sr.ReadLine()) != null)
                 {
@@ -183,7 +184,7 @@ namespace PandoraKeys
             try
             {
                 //Open the Mime.dat to find out the support Mime types
-                sr = new StreamReader(_apppath + "\\Webserver\\Mime.dat");
+                sr = new StreamReader(_apppath + "\\Mime.dat");
 
                 while ((sLine = sr.ReadLine()) != null)
                 {
@@ -243,7 +244,7 @@ namespace PandoraKeys
             try
             {
                 //Open the Vdirs.dat to find out the list virtual directories
-               sr = new StreamReader(_apppath + "\\Webserver\\VDirs.dat");
+               sr = new StreamReader(_apppath + "\\VDirs.dat");
 
                 while ((sLine = sr.ReadLine()) != null)
                 {
@@ -281,7 +282,7 @@ namespace PandoraKeys
             if (sVirtualDir == sDirName)
                 return sRealDir;
             else
-                return _apppath + "/Webserver/root/" + sDirName;
+                return _apppath + "/root/" + sDirName;
         }
 
         /// This function sends the Header Information to the client (Browser)
@@ -395,7 +396,7 @@ namespace PandoraKeys
             String sRequestedFile;
             String sErrorMessage;
             String sLocalDir;
-            String sMyWebServerRoot = _apppath + "Webserver/root/";// TODO this needs to be in vdirs or something
+            String sMyWebServerRoot = _apppath + "/root/";// TODO this needs to be in vdirs or something
             String sPhysicalFilePath = "";
             String sResponse = "";
 

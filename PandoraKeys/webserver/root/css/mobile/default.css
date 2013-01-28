@@ -99,9 +99,10 @@ color:white;
 	font-size:large;
 	color:white;
 }
-.album
+.albumtitle
 {
 	text-align:center;
+	text-decoration:none;
 	font-size:large;
 	color:white;
 }

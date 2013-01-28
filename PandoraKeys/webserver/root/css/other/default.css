@@ -99,9 +99,10 @@ color:white;
 	font-size:large;
 	color:white;
 }
-.album
+.albumtitle
 {
 	text-align:center;
+	text-decoration:none;
 	font-size:large;
 	color:white;
 }
@@ -109,6 +110,7 @@ color:white;
 {
 	border:0;
 	padding-left:7px;
+	text-decoration:none;
 	background-color:#192071;
 	font-size:large;
 	color:white;

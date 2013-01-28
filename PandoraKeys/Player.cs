@@ -56,7 +56,10 @@ namespace PandoraKeys
         {
             PressButton(Buttons.Skip);
         }
-
+        public void Reset()
+        {
+            _webBrowser.Refresh();
+        }
         public bool IsPaused
         {
             get
@@ -155,67 +158,103 @@ namespace PandoraKeys
             get
             {
                 // scan the document for Song Title, Artist, Album Title, Album image URL, Time Remaining
-                Song song = new Song();
+                Song s = new Song();
+                HtmlDocument document = _webBrowser.Document;
+                HtmlElementCollection col = null;
+
+                mshtml.IHTMLDocument2 domDoc = (mshtml.IHTMLDocument2)document.DomDocument;
+                string doc = domDoc.body.innerHTML;
+                int st;
+                int end;
+
                 try
                 {
-                    // get the Title
-                    HtmlDocument document = _webBrowser.Document;
-                    HtmlElementCollection col = document.GetElementById("trackInfo").FirstChild.Children;
-                    HtmlElementCollection col2 = col[1].Children;
-                    HtmlElement a = col2[3].FirstChild;
-                    song.Title = a.InnerText;
-                    if (song.Title == null) song.Title = "No Title";
-
-                    // now for the AlbumArt
-                    mshtml.IHTMLDocument2 domDoc = (mshtml.IHTMLDocument2)document.DomDocument;
-                    string doc = domDoc.body.innerHTML;
-                    int position = doc.IndexOf("class=playerBarArt ");
-                    int st = 0;
-                    int end = 0;
-                    if (position != -1)
+                    try
                     {
-                        st = doc.IndexOf("src=\"", position) + 5;
-                        end = doc.IndexOf("\"", st + 1);
-                        song.AlbumArtURL = doc.Substring(st, end - st);
+                        // get the Title
+                        col = document.GetElementById("trackInfo").FirstChild.Children;
+                        s.Title = col[1].Children[3].FirstChild.InnerText;
+                        if (s.Title == null) s.Title = "No Title";
                     }
-                    else song.AlbumArtURL = "/images/no_album_art.jpg";
+                    catch
+                    {
+                        s.Title = "No Title";
+                    }
 
-                    // and the Artist
-                    col = document.GetElementById("trackInfo").FirstChild.Children;
-                    col2 = col[1].Children;
-                    HtmlElementCollection col3 = col2[4].Children;
-                    song.Artist = col3[1].InnerText;
-                    if (song.Artist == null) song.Artist = "No Artist";
+                    try
+                    {
+                        // now for the AlbumArt
+                        int position = doc.IndexOf("class=playerBarArt ");
+                        st = 0;
+                        end = 0;
+                        if (position != -1)
+                        {
+                            st = doc.IndexOf("src=\"", position) + 5;
+                            end = doc.IndexOf("\"", st + 1);
+                            s.AlbumArtURL = doc.Substring(st, end - st);
+                        }
+                        else s.AlbumArtURL = "/images/no_album_art.jpg";
+                    }
+                    catch
+                    {
+                        s.AlbumArtURL = "/images/no_album_art.jpg";
+                    }
 
-                    // Album Title
-                    col = document.GetElementById("trackInfo").FirstChild.Children;
-                    col2 = col[1].Children;
-                    col3 = col2[5].Children;
-                    song.AlbumTitle = col3[1].InnerText;
-                    if (song.AlbumTitle == null) song.AlbumTitle = "No Title";
+                    try
+                    {
+                        // and the Artist
+                        s.Artist = col[1].Children[3].Children[1].Children[1].InnerText;
+                        if (s.Artist == null) s.Artist = "No Artist";
+                    }
+                    catch
+                    {
 
-                    // Time remaining
-                    st = doc.IndexOf("class=remainingTime");
-                    st = doc.IndexOf(">", st) + 2;
-                    end = doc.IndexOf("<", st);
+                        s.Artist = "No Artist";
+                    }
+                    try
+                    {
 
-                    string[] temp = doc.Substring(st, end - st).Split(':');
-                    for (int i = 0; i < temp.Length; i++) song.TimeRemaining = (60 * song.TimeRemaining) + int.Parse(temp[i]);
+                        // Album Title
+                        s.AlbumTitle = col[1].Children[3].Children[2].Children[1].InnerText;
+                        if (s.AlbumTitle == null) s.AlbumTitle = "No Title";
 
-                    // Elapsed Time
-                    st = doc.IndexOf("class=elapsedTime");
-                    st = doc.IndexOf(">", st) + 1;
-                    end = doc.IndexOf("<", st);
+                    }
+                    catch
+                    {
 
-                    temp = doc.Substring(st, end - st).Split(':');
-                    for (int i = 0; i < temp.Length; i++) song.ElapsedTime = (60 * song.ElapsedTime) + int.Parse(temp[i]);
+                        s.AlbumTitle = "No Title";
+                    }
 
+                    try
+                    {
+                        // Time remaining
+                        st = doc.IndexOf("class=remainingTime");
+                        st = doc.IndexOf(">", st) + 2;
+                        end = doc.IndexOf("<", st);
+
+                        string[] temp = doc.Substring(st, end - st).Split(':');
+                        for (int i = 0; i < temp.Length; i++) s.TimeRemaining = (60 * s.TimeRemaining) + int.Parse(temp[i]);
+
+                        // Elapsed Time
+                        st = doc.IndexOf("class=elapsedTime");
+                        st = doc.IndexOf(">", st) + 1;
+                        end = doc.IndexOf("<", st);
+
+                        temp = doc.Substring(st, end - st).Split(':');
+                        for (int i = 0; i < temp.Length; i++) s.ElapsedTime = (60 * s.ElapsedTime) + int.Parse(temp[i]);
+
+                    }
+                    catch
+                    {
+                        s.TimeRemaining = 0;
+                        s.ElapsedTime = 0;
+                    }
                 }
                 catch
                 {
-                    song.TimeRemaining = 0;
+                    s.TimeRemaining = 0;
                 }
-                return song;
+                return s;
             }
 
         }
