@@ -21,6 +21,7 @@ using System;
 using System.Windows.Forms;
 using PandoraKeys.Utilities;
 using PandoraKeys.Properties;
+using mshtml;
 
 namespace PandoraKeys
 {
@@ -31,6 +32,7 @@ namespace PandoraKeys
         private static Log _log = null;
         private readonly Player _player;
         private bool _webServerEnabled = false;
+        private bool injectedJQuery = false;
 
         public void StopLogging()
         {
@@ -228,5 +230,38 @@ namespace PandoraKeys
           get { return _webServerEnabled; }
        }
 
+       private void PandoraBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+       {
+           InjectJQuery();
+       }
+
+       private void InjectJQuery()
+       {
+           //This idea comes from https://github.com/xolarity/WinGrooves I think this is much easier ot maintain then continues parsing of the 
+           //We browsers DOM in C#
+           if (!injectedJQuery)
+           {
+               if (PandoraBrowser.Document != null)
+               {
+                   HtmlElement head = PandoraBrowser.Document.GetElementsByTagName("head")[0];
+                   HtmlElement scriptEl = PandoraBrowser.Document.CreateElement("script");
+                   if (scriptEl != null)
+                   {
+                       var element = (IHTMLScriptElement) scriptEl.DomElement;
+                       string injectedJQueryScript =
+                           "function getSongTitle() {  return $(\"#playerBar .playerBarSong\").text(); } " +
+                           "function getArtist() {  return $(\"#playerBar .playerBarArtist\").text(); }" +
+                           "function getAlbumTitle() {  return $(\"#playerBar .playerBarAlbum\").text(); }" +
+                           "function getAlbumArt() {  return $(\"#playerBar .playerBarArt\").attr(\"src\"); }" +
+                           "function getRemainingTime() {  return $(\"#playbackControl .remainingTime\").text(); }" +
+                           "function getElapsedTime() {  return $(\"#playbackControl .elapsedTime\").text(); }" +
+                           "function clickElement(selector) {  $(selector).click(); }";
+                       element.text = injectedJQueryScript;
+                       head.AppendChild(scriptEl);
+                       injectedJQuery = true;
+                   }
+               }
+           }
+       }
     }
 }

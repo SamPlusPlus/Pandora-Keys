@@ -158,105 +158,94 @@ namespace PandoraKeys
             get
             {
                 // scan the document for Song Title, Artist, Album Title, Album image URL, Time Remaining
-                Song s = new Song();
-                HtmlDocument document = _webBrowser.Document;
-                HtmlElementCollection col = null;
+                var s = new Song();
 
-                mshtml.IHTMLDocument2 domDoc = (mshtml.IHTMLDocument2)document.DomDocument;
-                string doc = domDoc.body.innerHTML;
-                int st;
-                int end;
-
-                try
+                //The webbrowser isn't fully loaded let's just return a default song.
+                if (_webBrowser.Document == null)
                 {
-                    try
-                    {
-                        // get the Title
-                        col = document.GetElementById("trackInfo").FirstChild.Children;
-                        s.Title = col[1].Children[3].FirstChild.InnerText;
-                        if (s.Title == null) s.Title = "No Title";
-                    }
-                    catch
-                    {
-                        s.Title = "No Title";
-                    }
-
-                    try
-                    {
-                        // now for the AlbumArt
-                        int position = doc.IndexOf("class=playerBarArt ");
-                        st = 0;
-                        end = 0;
-                        if (position != -1)
-                        {
-                            st = doc.IndexOf("src=\"", position) + 5;
-                            end = doc.IndexOf("\"", st + 1);
-                            s.AlbumArtURL = doc.Substring(st, end - st);
-                        }
-                        else s.AlbumArtURL = "/images/no_album_art.jpg";
-                    }
-                    catch
-                    {
-                        s.AlbumArtURL = "/images/no_album_art.jpg";
-                    }
-
-                    try
-                    {
-                        // and the Artist
-                        s.Artist = col[1].Children[3].Children[1].Children[1].InnerText;
-                        if (s.Artist == null) s.Artist = "No Artist";
-                    }
-                    catch
-                    {
-
-                        s.Artist = "No Artist";
-                    }
-                    try
-                    {
-
-                        // Album Title
-                        s.AlbumTitle = col[1].Children[3].Children[2].Children[1].InnerText;
-                        if (s.AlbumTitle == null) s.AlbumTitle = "No Title";
-
-                    }
-                    catch
-                    {
-
-                        s.AlbumTitle = "No Title";
-                    }
-
-                    try
-                    {
-                        // Time remaining
-                        st = doc.IndexOf("class=remainingTime");
-                        st = doc.IndexOf(">", st) + 2;
-                        end = doc.IndexOf("<", st);
-
-                        string[] temp = doc.Substring(st, end - st).Split(':');
-                        for (int i = 0; i < temp.Length; i++) s.TimeRemaining = (60 * s.TimeRemaining) + int.Parse(temp[i]);
-
-                        // Elapsed Time
-                        st = doc.IndexOf("class=elapsedTime");
-                        st = doc.IndexOf(">", st) + 1;
-                        end = doc.IndexOf("<", st);
-
-                        temp = doc.Substring(st, end - st).Split(':');
-                        for (int i = 0; i < temp.Length; i++) s.ElapsedTime = (60 * s.ElapsedTime) + int.Parse(temp[i]);
-
-                    }
-                    catch
-                    {
-                        s.TimeRemaining = 0;
-                        s.ElapsedTime = 0;
-                    }
+                    return s;
                 }
-                catch
-                {
-                    s.TimeRemaining = 0;
-                }
+
+                //TODO: Refactor this
+
+//                HtmlElementCollection col = null;
+//                mshtml.IHTMLDocument2 domDoc = (mshtml.IHTMLDocument2)_webBrowser.Document.DomDocument;
+//                string doc = domDoc.body.innerHTML;
+//                int st;
+//                int end;
+
+              //  try
+              //  {
+                    //Get song
+                    try {s.Title = _webBrowser.Document.InvokeScript("getSongTitle").ToString();}catch{}
+
+                    //Get AlbumARt
+                    try {s.AlbumArtURL = _webBrowser.Document.InvokeScript("getAlbumArt").ToString();} catch{}
+
+                    //Get Artist
+                    try{ s.Artist = _webBrowser.Document.InvokeScript("getArtist").ToString(); } catch{}
+
+                    // Album Title
+                    try { s.AlbumTitle = _webBrowser.Document.InvokeScript("getAlbumTitle").ToString(); } catch{}
+
+                     //RemainingTime
+                    try { s.TimeRemaining = TimeToSeconds(_webBrowser.Document.InvokeScript("getRemainingTime").ToString()); } catch{}
+
+                    //ElapsedTime
+                    try { s.ElapsedTime = TimeToSeconds(_webBrowser.Document.InvokeScript("getElapsedTime").ToString()); } catch{}
+
+//                    try
+//                    {
+//                        // Time remaining
+//                        st = doc.IndexOf("class=remainingTime");
+//                        st = doc.IndexOf(">", st) + 2;
+//                        end = doc.IndexOf("<", st);
+//
+//                        string[] temp = doc.Substring(st, end - st).Split(':');
+//                        for (int i = 0; i < temp.Length; i++) s.TimeRemaining = (60 * s.TimeRemaining) + int.Parse(temp[i]);
+//
+//                        // Elapsed Time
+//                        st = doc.IndexOf("class=elapsedTime");
+//                        st = doc.IndexOf(">", st) + 1;
+//                        end = doc.IndexOf("<", st);
+//
+//                        temp = doc.Substring(st, end - st).Split(':');
+//                        for (int i = 0; i < temp.Length; i++) s.ElapsedTime = (60 * s.ElapsedTime) + int.Parse(temp[i]);
+//
+//                    }
+//                    catch
+//                    {
+//                        s.TimeRemaining = 0;
+//                        s.ElapsedTime = 0;
+//                    }
+//                }
+//                catch
+//                {
+//                    s.TimeRemaining = 0;
+//                }
                 return s;
             }
 
+        }
+
+        private int TimeToSeconds(string time)
+        {
+            //Todo Fix Logic Here
+            string[] times = time.Split(':');
+            
+            if (times.Length == 2)
+            {
+                //Minutes + seconds
+                return new TimeSpan(0, Math.Abs(int.Parse(times[0])), Math.Abs(int.Parse(times[1]))).Seconds;
+            }
+            else if(times.Length == 3)
+            {
+                //Hours + Minutes + seconds
+                return new TimeSpan(Math.Abs(int.Parse(times[0])), Math.Abs(int.Parse(times[1])), Math.Abs(int.Parse(times[2]))).Seconds;
+            }
+
+            //We couldn't figure out the string
+            return 0;
         }
 
         private void SelectStation(string cmds, ref StringBuilder log)
