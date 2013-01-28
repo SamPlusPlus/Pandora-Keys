@@ -237,8 +237,8 @@ namespace PandoraKeys
 
        private void InjectJQuery()
        {
-           //This idea comes from https://github.com/xolarity/WinGrooves I think this is much easier ot maintain then continues parsing of the 
-           //We browsers DOM in C#
+           //This idea comes from https://github.com/xolarity/WinGrooves, I think this is much easier to maintain then continuous
+           //parsing of the Web browsers DOM in C#
            if (!injectedJQuery)
            {
                if (PandoraBrowser.Document != null)
