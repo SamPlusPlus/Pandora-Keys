@@ -147,6 +147,34 @@ namespace PandoraKeys
         {
             ToggleWindow();
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutForm about = new AboutForm();
+            about.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsDialog settingsDialog = new SettingsDialog();
+            settingsDialog.ShowDialog();
+        }
+
+        private void hideShowPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToggleWindow();
+        }
+
+        private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _player.Reset();
+        }
+
         #endregion
 
         private void ToggleWindow()
@@ -164,28 +192,6 @@ namespace PandoraKeys
                 this.BringToFront();
                 this.TopMost = false;
             }
-        }
-        
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           AboutForm about = new AboutForm();
-           about.ShowDialog();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SettingsDialog settingsDialog = new SettingsDialog();
-            settingsDialog.ShowDialog();
-        }
-
-        private void hideShowPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ToggleWindow();
         }
 
         private void Tuner_Resize(object sender, EventArgs e)
@@ -227,6 +233,5 @@ namespace PandoraKeys
        {
           get { return _webServerEnabled; }
        }
-
     }
 }
