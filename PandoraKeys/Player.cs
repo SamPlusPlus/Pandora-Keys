@@ -60,6 +60,7 @@ namespace PandoraKeys
         {
             _webBrowser.Refresh();
         }
+
         public bool IsPaused
         {
             get
