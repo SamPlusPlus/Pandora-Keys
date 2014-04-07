@@ -175,7 +175,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="certfiletosingwith.pfx" />
     <None Include="Resources\application_osx_terminal.png" />
     <None Include="Resources\money.png" />
     <Content Include="WebServer\Default.dat" />

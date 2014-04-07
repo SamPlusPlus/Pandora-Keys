@@ -66,7 +66,7 @@ namespace PandoraKeys
             {
                 try
                 {
-                    return Doc.GetElementById("playbackControl").FirstChild.Children[(int)Buttons.Pause].Style.ToLower().Contains("none");
+                    return Doc.GetElementById("playbackControl").Children[0].Children[(int)Buttons.Pause].Style.ToLower().Contains("none");
                 }
                 catch
                 {
@@ -107,13 +107,13 @@ namespace PandoraKeys
                         // if we have a checkbox then shuffle is selected
                         if (el.InnerHtml.Contains("checkbox"))
                         {
-                            while (tel.Children.Count > 0) tel = tel.FirstChild;
+                            while (tel.Children.Count > 0) tel = tel.Children[0];
                             tel = tel.Parent;
                             HtmlElementCollection children = tel.Children;
                             tel = children[2];
                         }
 
-                        while (tel.Children.Count > 0) tel = tel.FirstChild;
+                        while (tel.Children.Count > 0) tel = tel.Children[0];
 
                         string eltext = el.OuterHtml;
                         st.IsSelected = false;
@@ -143,11 +143,12 @@ namespace PandoraKeys
                 try
                 {
                     HtmlElement skin = _webBrowser.Document.GetElementById("skinStyle");
+                    if (skin.GetAttribute("href") == "") return "/static/pandora_one/skins/pandoraone/skin.css";
                     return skin.GetAttribute("href");
                 }
                 catch
                 {
-                    return "";
+                    return "/static/pandora_one/skins/pandoraone/skin.css";
                 }
             }
 
@@ -161,19 +162,33 @@ namespace PandoraKeys
                 Song s = new Song();
                 HtmlDocument document = _webBrowser.Document;
                 HtmlElementCollection col = null;
-
-                mshtml.IHTMLDocument2 domDoc = (mshtml.IHTMLDocument2)document.DomDocument;
-                string doc = domDoc.body.innerHTML;
+                string doc = null;
                 int st;
                 int end;
-
+                try
+                {
+                    mshtml.IHTMLDocument2 domDoc = (mshtml.IHTMLDocument2)document.DomDocument;
+                    doc = domDoc.body.innerHTML;
+                    
+                }
+                catch
+                {
+                }
                 try
                 {
                     try
                     {
                         // get the Title
-                        col = document.GetElementById("trackInfo").FirstChild.Children;
-                        s.Title = col[1].Children[3].FirstChild.InnerText;
+                        //col = document.GetElementById("trackInfo").FirstChild.Children;
+                        HtmlElement el = document.GetElementById("trackInfo");
+                        HtmlElementCollection elc = el.Children;
+                        int elcount = elc.Count;
+                        HtmlElement el2 = elc[0];
+
+                        //HtmlElement el2 = el.FirstChild;
+                        col = el2.Children;
+
+                        s.Title = col[1].Children[2].Children[0].InnerText;
                         if (s.Title == null) s.Title = "No Title";
                     }
                     catch
@@ -184,7 +199,7 @@ namespace PandoraKeys
                     try
                     {
                         // now for the AlbumArt
-                        int position = doc.IndexOf("class=playerBarArt ");
+                        int position = doc.IndexOf("class=\"playerBarArt\"");
                         st = 0;
                         end = 0;
                         if (position != -1)
@@ -192,6 +207,7 @@ namespace PandoraKeys
                             st = doc.IndexOf("src=\"", position) + 5;
                             end = doc.IndexOf("\"", st + 1);
                             s.AlbumArtURL = doc.Substring(st, end - st);
+                            if (s.AlbumArtURL.Contains("${$data}")) s.AlbumArtURL = "/images/no_album_art.jpg";
                         }
                         else s.AlbumArtURL = "/images/no_album_art.jpg";
                     }
@@ -203,7 +219,7 @@ namespace PandoraKeys
                     try
                     {
                         // and the Artist
-                        s.Artist = col[1].Children[3].Children[1].Children[1].InnerText;
+                        s.Artist = col[1].Children[2].Children[1].Children[1].InnerText;
                         if (s.Artist == null) s.Artist = "No Artist";
                     }
                     catch
@@ -215,7 +231,7 @@ namespace PandoraKeys
                     {
 
                         // Album Title
-                        s.AlbumTitle = col[1].Children[3].Children[2].Children[1].InnerText;
+                        s.AlbumTitle = col[1].Children[2].Children[2].Children[1].InnerText;
                         if (s.AlbumTitle == null) s.AlbumTitle = "No Title";
 
                     }
@@ -228,7 +244,7 @@ namespace PandoraKeys
                     try
                     {
                         // Time remaining
-                        st = doc.IndexOf("class=remainingTime");
+                        st = doc.IndexOf("class=\"remainingTime\"");
                         st = doc.IndexOf(">", st) + 2;
                         end = doc.IndexOf("<", st);
 
@@ -236,7 +252,7 @@ namespace PandoraKeys
                         for (int i = 0; i < temp.Length; i++) s.TimeRemaining = (60 * s.TimeRemaining) + int.Parse(temp[i]);
 
                         // Elapsed Time
-                        st = doc.IndexOf("class=elapsedTime");
+                        st = doc.IndexOf("class=\"elapsedTime\"");
                         st = doc.IndexOf(">", st) + 1;
                         end = doc.IndexOf("<", st);
 
@@ -272,13 +288,13 @@ namespace PandoraKeys
                     HtmlElement tel = el;
                     if (el.InnerHtml.Contains("checkbox"))
                     {
-                        while (tel.Children.Count > 0) tel = tel.FirstChild;
+                        while (tel.Children.Count > 0) tel = tel.Children[0];
                         tel = tel.Parent;
                         HtmlElementCollection children = tel.Children;
                         tel = children[2];
                     }
 
-                    while (tel.Children.Count > 0) tel = tel.FirstChild;
+                    while (tel.Children.Count > 0) tel = tel.Children[0];
                     if (tel.InnerText.CompareTo(HttpUtility.UrlDecode(cmd[1])) == 0)
                     {
                         log.Append("\n*************** Found station: " + HttpUtility.UrlDecode(cmd[1]));
@@ -332,6 +348,10 @@ namespace PandoraKeys
                         // Next track
                         Skip();
                         break;
+                    case "cmd=reset":
+                        // refresh the browser
+                        Reset();
+                        break;
                     default:
                         // Select Station
                         log.Append("\ndefault '" + cmds + "'");
@@ -353,7 +373,7 @@ namespace PandoraKeys
             try
             {
                 if (Doc != null)
-                    Doc.GetElementById("playbackControl").FirstChild.Children[(int)action].FirstChild.InvokeMember("click");
+                    Doc.GetElementById("playbackControl").Children[0].Children[(int)action].Children[0].InvokeMember("click");
             }
             catch { }
 
