@@ -177,6 +177,16 @@
     <None Include="app.config" />
     <None Include="Resources\application_osx_terminal.png" />
     <None Include="Resources\money.png" />
+    <None Include="Resources\control_play.png" />
+    <None Include="Resources\control_fastforward.png" />
+    <None Include="Resources\thumb_up.png" />
+    <None Include="Resources\thumb_down.png" />
+    <None Include="Resources\eye.png" />
+    <None Include="Resources\arrow_refresh.png" />
+    <None Include="Resources\wrench_orange.png" />
+    <None Include="Resources\page_white_text.png" />
+    <None Include="Resources\information.png" />
+    <None Include="Resources\cancel.png" />
     <Content Include="WebServer\Default.dat" />
     <Content Include="WebServer\Mime.dat" />
     <None Include="Properties\app.manifest">
