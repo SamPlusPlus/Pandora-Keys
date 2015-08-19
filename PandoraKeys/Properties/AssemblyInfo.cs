@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PandoraKeys")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Desktop Wrapper for Pandora.com")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SamuelHaddad.com")]
 [assembly: AssemblyProduct("PandoraKeys")]
-[assembly: AssemblyCopyright("Samuel Haddad Copyright ©2014")]
+[assembly: AssemblyCopyright("Samuel Haddad Copyright ©2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.2.0.12")]
-[assembly: AssemblyFileVersion("2.2.0.12")]
+[assembly: AssemblyVersion("2.2.1.0")]
+[assembly: AssemblyFileVersion("2.2.1.0")]
