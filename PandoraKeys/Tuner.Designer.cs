@@ -33,19 +33,19 @@
             this.PandoraBrowser = new System.Windows.Forms.WebBrowser();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playPauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.likeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dislikeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.hideShowPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.log = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +57,7 @@
             this.PandoraBrowser.Name = "PandoraBrowser";
             this.PandoraBrowser.ScriptErrorsSuppressed = true;
             this.PandoraBrowser.ScrollBarsEnabled = false;
-            this.PandoraBrowser.Size = new System.Drawing.Size(839, 591);
+            this.PandoraBrowser.Size = new System.Drawing.Size(960, 456);
             this.PandoraBrowser.TabIndex = 0;
             this.PandoraBrowser.Url = new System.Uri("https://www.pandora.com", System.UriKind.Absolute);
             // 
@@ -87,29 +87,6 @@
             this.exitToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
             this.contextMenu.Size = new System.Drawing.Size(169, 242);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(165, 6);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(165, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(165, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Image = global::PandoraKeys.Properties.Resources.cancel;
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // playPauseToolStripMenuItem
             // 
@@ -143,6 +120,11 @@
             this.dislikeToolStripMenuItem.Text = "Dislike";
             this.dislikeToolStripMenuItem.Click += new System.EventHandler(this.dislikeToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(165, 6);
+            // 
             // hideShowPlayerToolStripMenuItem
             // 
             this.hideShowPlayerToolStripMenuItem.Image = global::PandoraKeys.Properties.Resources.eye;
@@ -167,6 +149,11 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(165, 6);
+            // 
             // log
             // 
             this.log.Image = global::PandoraKeys.Properties.Resources.page_white_text;
@@ -174,6 +161,11 @@
             this.log.Size = new System.Drawing.Size(168, 22);
             this.log.Text = "Log";
             this.log.Click += new System.EventHandler(this.log_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(165, 6);
             // 
             // aboutToolStripMenuItem
             // 
@@ -183,11 +175,19 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Image = global::PandoraKeys.Properties.Resources.cancel;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // Tuner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 591);
+            this.ClientSize = new System.Drawing.Size(960, 456);
             this.Controls.Add(this.PandoraBrowser);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Tuner";
