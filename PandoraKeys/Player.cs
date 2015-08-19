@@ -44,7 +44,10 @@ namespace PandoraKeys
 
         public void Like()
         {
-            PressButton(Buttons.Like);
+            if (!IsThumbsUp)
+            {
+                PressButton(Buttons.Like);
+            }
         }
 
         public void PlayPause()
