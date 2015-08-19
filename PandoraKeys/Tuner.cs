@@ -31,6 +31,8 @@ namespace PandoraKeys
         private static Log _log = null;
         private readonly Player _player;
         private bool _webServerEnabled = false;
+        private bool _pageNeedsParsing = true; //Should be true if it hasn't loaded or has changeds
+        private Song _tempSong;
 
         public void StopLogging()
         {
@@ -232,6 +234,50 @@ namespace PandoraKeys
        private bool WebServerEnabled
        {
           get { return _webServerEnabled; }
+       }
+
+       private void SongUpdater_Tick(object sender, EventArgs e)
+       {
+           if (!_pageNeedsParsing) return;
+
+           ProccessChanges();
+
+       }
+
+       private void ProccessChanges()
+       {
+           var song = _player.Song;
+
+     
+           if (String.IsNullOrEmpty(song.Title)) return;
+
+           if (_tempSong == null || _tempSong.Title != song.Title)
+           {
+               _tempSong = song;
+              // ParseSong(Settings.Default.DisplaySongBalloon);
+           }
+//
+//           if (_track.TimeRemaining.EndsWith("0:10"))
+//               ParseSong(Settings.Default.DisplaySongBalloonAtEndOfSong);
+//
+           string title = song.ToString();
+           notifyIcon.Text = title.Length > 63 ? title.Substring(0, 62) : title;
+           _tempSong = song;
+
+       }
+
+       private void ShowBalloonTip(string title, string message)
+       {
+           if (!String.IsNullOrEmpty(title) && !String.IsNullOrEmpty(message))
+           {
+               notifyIcon.ShowBalloonTip(100, title, message, ToolTipIcon.None);
+           }
+       }
+
+
+       private void PandoraBrowser_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
+       {
+           _pageNeedsParsing = true;
        }
     }
 }

@@ -46,6 +46,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SongUpdater = new System.Windows.Forms.Timer(this.components);
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +61,7 @@
             this.PandoraBrowser.Size = new System.Drawing.Size(960, 456);
             this.PandoraBrowser.TabIndex = 0;
             this.PandoraBrowser.Url = new System.Uri("https://www.pandora.com", System.UriKind.Absolute);
+            this.PandoraBrowser.ProgressChanged += new System.Windows.Forms.WebBrowserProgressChangedEventHandler(this.PandoraBrowser_ProgressChanged);
             // 
             // notifyIcon
             // 
@@ -183,6 +185,12 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // SongUpdater
+            // 
+            this.SongUpdater.Enabled = true;
+            this.SongUpdater.Interval = 1000;
+            this.SongUpdater.Tick += new System.EventHandler(this.SongUpdater_Tick);
+            // 
             // Tuner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,6 +226,7 @@
         private System.Windows.Forms.ToolStripMenuItem log;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem ResetToolStripMenuItem;
+        private System.Windows.Forms.Timer SongUpdater;
     }
 }
 

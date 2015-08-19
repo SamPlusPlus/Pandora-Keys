@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+using System;
+
 namespace PandoraKeys
 {
     public class Song
@@ -26,35 +29,47 @@ namespace PandoraKeys
         private string _albumtitle = "no Title";
 
 
-        public Song()
-        {
-        }
-
         public string Title
         {
             get { return _title; }
-            set { _title = value; }
+            set { _title = value.Trim(); }
         }
 
         public string AlbumArtURL
         {
             get { return _albumarturl; }
-            set { _albumarturl = value; }
+            set { _albumarturl = value.Trim(); }
         }
 
         public string Artist
         {
             get { return _artist; }
-            set { _artist = value; }
+            set { _artist = value.Trim(); }
         }
 
         public string AlbumTitle
         {
             get { return _albumtitle; }
-            set { _albumtitle = value; }
+            set { _albumtitle = value.Trim(); }
         }
 
         public int TimeRemaining { get; set; }
+
+        public string TimeRemainingFmt
+        {
+            get
+            {
+                var time = TimeSpan.FromSeconds(TimeRemaining);
+                return time.ToString("mm':'ss");
+            }
+        }
+
         public int ElapsedTime { get; set; }
+
+
+        public override string ToString()
+        {
+            return String.Format("{0}:{1} {2}", Title, Artist, TimeRemainingFmt);
+        }
     }
 }
